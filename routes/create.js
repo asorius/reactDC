@@ -17,23 +17,29 @@ router.post('/', async (req, res) => {
   if (collection) {
     return res.status(400).json({ name: 'This name already exists' });
   }
+  //Passwords hashing
+  const salt = await bcrypt.genSalt(10);
+  const adminHashed = await bcrypt.hash(password_admin, salt);
+  const normalHashed = await bcrypt.hash(password, salt);
+
   //Create new collection instance
   const newCollection = new Collection({
     name,
-    password_admin,
-    password
+    password: normalHashed,
+    password_admin: adminHashed
   });
-  //Passwords hashing
-  const salt = await bcrypt.genSalt(10);
-  const adminHashed = await bcrypt.hash(newCollection.password_admin, salt);
-  const normalHashed = await bcrypt.hash(newCollection.password, salt);
-  newCollection.password = normalHashed;
-  newCollection.password_admin = adminHashed;
-  //Generate token with user type and collection name in it
-  const token = await jwtGenerator('admin', newCollection.name);
-  await newCollection.save();
-  const { cname, cdata } = newCollection;
-  res.json({ name: cname, data: cdata, token });
+
+  try {
+    await newCollection.save();
+    //Generate token with user type and collection id in it
+    const token = await jwtGenerator({
+      userType: 'admin',
+      id: newCollection._id
+    });
+    res.json({ token });
+  } catch (e) {
+    res.json(e);
+  }
 });
 
 module.exports = router;

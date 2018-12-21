@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Collection = require('../modules/Collection');
-const bcrypt = require('bcryptjs');
-const jwtGenerator = require('../generators/jwtGenerator');
 const passport = require('passport');
 const validateAdditionInput = require('../validation/addition');
-
+const moment = require('moment');
 //GET COLLECTION ../collection/
 router.get(
   '/',
@@ -26,21 +24,24 @@ router.post(
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     try {
-      const { collectionName, type } = req.user;
-      const input = req.body;
+      const { id } = req.user;
+      const date = moment().format('MMM Do YYYY, h:mm:ss a');
+      req.body.amount = parseFloat(req.body.amount).toFixed(2);
+      const input = { ...req.body, date };
       const { errors, isValid } = validateAdditionInput(req.body);
       // Check Validation
       if (!isValid) {
         return res.status(400).json(errors);
       }
-
-      const updatedCollection = await Collection.findOneAndUpdate(
-        { name: collectionName },
-        { $push: { data: { ...input } } }
+      const updatedCollection = await Collection.findByIdAndUpdate(
+        id,
+        { $push: { data: { ...input } } },
+        { new: true }
       );
-      res.json({ updatedCollection });
-    } catch (e) {
-      res.json(e);
+      await updatedCollection.save();
+      res.json({ sum: updatedCollection.sum, data: updatedCollection.data });
+    } catch (error) {
+      res.json({ error });
     }
   }
 );

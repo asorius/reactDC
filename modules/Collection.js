@@ -17,10 +17,19 @@ const collectionSchema = new Schema({
     required: true
   },
   sum: {
-    type: String
+    type: Number,
+    default: 0
   },
-  data: {
-    type: Array
-  }
+  data: []
+});
+
+collectionSchema.pre('save', function(next) {
+  const collection = this;
+  const initialValue = 0;
+  const allSum = collection.data.reduce((accumulator, currentValue) => {
+    return accumulator + Number(currentValue.amount);
+  }, initialValue);
+  collection.sum = allSum;
+  next();
 });
 module.exports = Collection = mongoose.model('collection', collectionSchema);

@@ -23,13 +23,13 @@ router.post('/', async (req, res) => {
   if (normal) {
     const token = await jwtGenerator('user', collection.name);
     //put token in local and send token back
-    return res.json({ token, collection });
+    return res.json({ token, access: 'user' });
   }
   if (admin) {
     const token = await jwtGenerator('admin', collection.name);
     //put token in local and send token back
 
-    return res.json({ token, collection });
+    return res.json({ token, access: 'admin' });
   } else {
     return res.status(400).json({ error: 'Name or password incorrect' });
   }

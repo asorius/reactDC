@@ -11,11 +11,11 @@ opts.secretOrKey = keys.secretOrKey;
 module.exports = passport => {
   passport.use(
     new JwtStrategy(opts, (jwt_payload, done) => {
-      const { collectionName, userType } = jwt_payload;
-      Collection.findOne({ name: collectionName })
+      const { id, userType } = jwt_payload;
+      Collection.findById(id)
         .then(collection => {
           if (collection) {
-            const data = { type: userType, collectionName: collection.name };
+            const data = { type: userType, id };
             return done(null, data);
           }
           return done(null, false);
