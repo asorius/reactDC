@@ -17,7 +17,7 @@ const db = require('./config/key_dist').mongoURI;
 mongoose
   .connect(
     db,
-    { useNewUrlParser: true }
+    { useNewUrlParser: true, useCreateIndex: true }
   )
   .then(console.log('DB connected'))
   .catch(e => console.log(e));
