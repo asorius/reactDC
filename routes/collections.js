@@ -12,9 +12,9 @@ router.get(
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     try {
-      const { collectionName, type } = req.user;
-      const { data } = await Collection.findOne({ name: collectionName });
-      res.json({ data, collectionName, type });
+      const { id, type } = req.user;
+      const { data, name } = await Collection.findOne({ _id: id });
+      res.json({ data, name, type });
     } catch (e) {
       res.json(e);
     }
@@ -27,7 +27,7 @@ router.post(
   async (req, res) => {
     try {
       const { id } = req.user;
-      const date = moment().format('MMM Do YYYY, h:mm:ss a');
+      const date = moment().format('MMM Do YYYY, h:mm a');
       req.body.amount = parseFloat(req.body.amount).toFixed(2);
       const _id = idGenerator();
       const input = { ...req.body, date, _id };
@@ -70,6 +70,44 @@ router.delete(
     }
   }
 );
-//DELETE ALL DATA
+//DELETE ALL DATA ITEMS
+router.delete(
+  '/delete/data',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    try {
+      const { id } = req.user;
+      const updatedCollection = await Collection.findByIdAndUpdate(
+        id,
+        { data: [] },
+        { new: true }
+      );
+      await updatedCollection.save();
+      const deleted = updatedCollection.data === 0 ? true : false;
+      res.json({
+        sum: updatedCollection.sum,
+        data: updatedCollection.data,
+        deleted
+      });
+    } catch (error) {
+      res.json({ error });
+    }
+  }
+);
 //DELETE COLLECTION
+router.delete(
+  '/delete',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    try {
+      const { id } = req.user;
+      const collection = await Collection.findByIdAndRemove(id);
+
+      res.json({ collection, deleted: true });
+    } catch {
+      res.status(400).send({ deleted: false });
+    }
+  }
+);
+
 module.exports = router;
