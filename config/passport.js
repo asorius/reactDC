@@ -15,8 +15,8 @@ module.exports = passport => {
       Collection.findOne({ name: collectionName })
         .then(collection => {
           if (collection) {
-            const user = { userType };
-            return done(null, user);
+            const data = { type: userType, collectionName: collection.name };
+            return done(null, data);
           }
           return done(null, false);
         })

@@ -7,8 +7,8 @@ module.exports = function validateLoginInput(data) {
   data.name = !isEmpty(data.name) ? data.name : '';
   data.password = !isEmpty(data.password) ? data.password : '';
 
-  if (!Validator.isEmpty(data.name)) {
-    errors.name = 'Name is invalid';
+  if (Validator.isEmpty(data.name)) {
+    errors.name = 'Name is required';
   }
 
   if (Validator.isEmpty(data.password)) {
