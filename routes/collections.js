@@ -13,8 +13,8 @@ router.get(
   async (req, res) => {
     try {
       const { id, type } = req.user;
-      const { data, name } = await Collection.findOne({ _id: id });
-      res.json({ data, name, type });
+      const { data, name, sum } = await Collection.findOne({ _id: id });
+      res.json({ data, name, type, sum });
     } catch (e) {
       res.json(e);
     }
@@ -50,7 +50,7 @@ router.post(
 );
 //DELETE SINGLE
 router.delete(
-  '/delete/:id',
+  '/delete/data/:id',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     try {
@@ -83,10 +83,8 @@ router.delete(
         { new: true }
       );
       await updatedCollection.save();
-      const deleted = updatedCollection.data === 0 ? true : false;
+      const deleted = updatedCollection.data.length === 0 ? true : false;
       res.json({
-        sum: updatedCollection.sum,
-        data: updatedCollection.data,
         deleted
       });
     } catch (error) {
