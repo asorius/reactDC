@@ -6,9 +6,9 @@ const validateAdditionInput = require('../validation/addition');
 const moment = require('moment');
 const idGenerator = require('../generators/idGenerator');
 
-//GET COLLECTION ../collection/
+//GET COLLECTION ../collections/get
 router.get(
-  '/',
+  '/get',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     try {
@@ -20,7 +20,7 @@ router.get(
     }
   }
 );
-//ADD NEW DATA
+//ADD NEW DATA ../collections/add
 router.post(
   '/add',
   passport.authenticate('jwt', { session: false }),
@@ -48,7 +48,7 @@ router.post(
     }
   }
 );
-//DELETE SINGLE
+//DELETE SINGLE ../collections/delete/data/12431541523
 router.delete(
   '/delete/data/:id',
   passport.authenticate('jwt', { session: false }),
@@ -70,7 +70,7 @@ router.delete(
     }
   }
 );
-//DELETE ALL DATA ITEMS
+//DELETE ALL DATA ITEMS ../collections/delete/data
 router.delete(
   '/delete/data',
   passport.authenticate('jwt', { session: false }),
@@ -92,7 +92,7 @@ router.delete(
     }
   }
 );
-//DELETE COLLECTION
+//DELETE COLLECTION ../collections/delete
 router.delete(
   '/delete',
   passport.authenticate('jwt', { session: false }),

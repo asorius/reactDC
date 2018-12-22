@@ -1,4 +1,4 @@
-import { SET_USER, GET_ERRORS, CLEAR_ERRORS } from './types';
+import { SET_USER, GET_ERRORS, CLEAR_ERRORS, SET_CURRENT_USER } from './types';
 import axios from 'axios';
 import setAxiosHeader from '../utils/setAxiosHeader';
 export const createCollection = (data, history) => dispatch => {
@@ -26,6 +26,14 @@ export const createCollection = (data, history) => dispatch => {
       dispatch({ type: GET_ERRORS, payload: error.response.data })
     );
 };
+//SET CURRENT USER
+export const setCurrentUser = decoded => dispatch => {
+  dispatch({
+    type: SET_CURRENT_USER,
+    payload: decoded
+  });
+};
+
 //CLEAR ERRORS
 export const clearErrors = () => {
   return {

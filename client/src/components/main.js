@@ -19,7 +19,4 @@ Main.propTypes = {
   errors: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
-export default connect(
-  mapStateToProps,
-  {}
-)(Main);
+export default connect(mapStateToProps)(Main);
