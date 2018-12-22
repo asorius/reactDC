@@ -1,0 +1,3 @@
+export const SET_USER = 'SET_USER',
+  GET_ERRORS = 'GET_ERRORS',
+  CLEAR_ERRORS = 'CLEAR_ERRORS';
