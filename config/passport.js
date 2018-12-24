@@ -15,7 +15,7 @@ module.exports = passport => {
       Collection.findById(id)
         .then(collection => {
           if (collection) {
-            const data = { type: userType, id };
+            const data = { userType, id };
             return done(null, data);
           }
           return done(null, false);

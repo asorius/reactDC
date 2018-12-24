@@ -1,37 +1,46 @@
-import { SET_USER, GET_ERRORS, CLEAR_ERRORS, SET_CURRENT_USER } from './types';
+import { SET_USER, GET_ERRORS, CLEAR_ERRORS } from './types';
 import axios from 'axios';
 import setAxiosHeader from '../utils/setAxiosHeader';
-export const createCollection = (data, history) => dispatch => {
-  dispatch(clearErrors());
-  const newData = {
+import jwt_decode from 'jwt-decode';
+
+//SET CURRENT USER
+export const setUser = decoded => dispatch => {
+  if (!decoded.userType) {
+    decoded = { ...decoded, isAuthenticated: true };
+  } else {
+    decoded = { ...decoded, isAuthenticated: false };
+  }
+  dispatch({
+    type: SET_USER,
+    payload: decoded
+  });
+};
+//LOGIN
+export const loginUser = data => dispatch => {
+  const { history } = data;
+  const loginData = {
     name: data.name,
-    password: data.password,
-    password_admin: data.password_admin
+    password: data.password
   };
+
   axios
-    .post('/create/', newData)
+    .post('/login', loginData)
     .then(res => {
-      // Save to localStorage
-      const { token, userType } = res.data;
-      // Set token to ls
+      //response looks like: { token, userType: 'user' }
+      const { token } = res.data;
       localStorage.setItem('jwtToken', token);
       setAxiosHeader(token);
+      const decoded = jwt_decode(token);
+      //decoded should look like :{id:'weqrwer',userType:'admin'}
       history.push('/collections');
       dispatch({
         type: SET_USER,
-        payload: userType
+        payload: decoded
       });
     })
     .catch(error =>
       dispatch({ type: GET_ERRORS, payload: error.response.data })
     );
-};
-//SET CURRENT USER
-export const setCurrentUser = decoded => dispatch => {
-  dispatch({
-    type: SET_CURRENT_USER,
-    payload: decoded
-  });
 };
 
 //CLEAR ERRORS

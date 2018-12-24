@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-export default class Landing extends Component {
+class Landing extends Component {
   render() {
     return (
       <div className="container">
@@ -12,22 +12,14 @@ export default class Landing extends Component {
           <div className="col s10 m6 landing_actions">
             <div className="row ">
               <div className="col s12 center">
-                <Link
-                  to="/create"
-                  className="waves-effect waves-light btn"
-                  onClick={this.onClick}
-                >
+                <Link to="/create" className="waves-effect waves-light btn">
                   Create New
                 </Link>
               </div>
             </div>
             <div className="row">
               <div className="col s12 center">
-                <Link
-                  to="/login"
-                  className="waves-effect waves-light btn"
-                  onClick={this.onClick}
-                >
+                <Link to="/login" className="waves-effect waves-light btn">
                   Login
                 </Link>
               </div>
@@ -38,3 +30,5 @@ export default class Landing extends Component {
     );
   }
 }
+
+export default Landing;

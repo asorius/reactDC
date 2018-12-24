@@ -21,15 +21,12 @@ router.post('/', async (req, res) => {
   const normal = await bcrypt.compare(password, collection.password);
   const admin = await bcrypt.compare(password, collection.password_admin);
   if (normal) {
-    const token = await jwtGenerator('user', collection.name);
-    //put token in local and send token back
-    return res.json({ token, access: 'user' });
+    const token = await jwtGenerator({ userType: 'user', id: collection._id });
+    return res.json({ token, userType: 'user' });
   }
   if (admin) {
-    const token = await jwtGenerator('admin', collection.name);
-    //put token in local and send token back
-
-    return res.json({ token, access: 'admin' });
+    const token = await jwtGenerator({ userType: 'admin', id: collection._id });
+    return res.json({ token, userType: 'admin' });
   } else {
     return res.status(400).json({ error: 'Name or password incorrect' });
   }

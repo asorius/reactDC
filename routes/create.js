@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
       userType: 'admin',
       id: newCollection._id
     });
-    res.json({ token, userType: 'admin' });
+    res.json({ token, userType: 'admin', id: newCollection._id });
   } catch (e) {
     res.json(e);
   }

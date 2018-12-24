@@ -1,40 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createCollection } from '../actions/authActions';
+import { createCollection } from '../actions/collectionActions';
 import PropTypes from 'prop-types';
-
+import { clearErrors } from '../actions/authActions';
 class Create extends Component {
   state = {
     name: '',
     password: '',
-    password_admin: '',
-    errors: {}
+    password_admin: ''
   };
-  static getDerivedStateFromProps(nextProps) {
-    if (nextProps.errors) {
-      return { errors: nextProps.errors };
-    }
-    return null;
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.errors !== this.props.errors) {
-      this.setState({ errors: this.props.errors });
-    }
+  componentWillUnmount() {
+    this.props.clearErrors();
   }
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
   onSubmit = e => {
     e.preventDefault();
-    const newCollection = {
+    const dataToSend = {
       name: this.state.name.toLowerCase(),
       password: this.state.password.toLowerCase(),
-      password_admin: this.state.password_admin.toLowerCase()
+      password_admin: this.state.password_admin.toLowerCase(),
+      history: this.props.history
     };
-    this.props.createCollection(newCollection, this.props.history);
+    this.props.createCollection(dataToSend);
   };
   render() {
-    const { errors } = this.state;
+    const { errors } = this.props;
     return (
       <div className="container">
         <h1>create</h1>
@@ -116,9 +108,10 @@ const mapStateToProps = state => ({
 Create.propTypes = {
   errors: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  createCollection: PropTypes.func.isRequired
+  createCollection: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired
 };
 export default connect(
   mapStateToProps,
-  { createCollection }
+  { createCollection, clearErrors }
 )(Create);

@@ -1,26 +1,19 @@
-import { SET_USER, CLEAR_ERRORS, SET_CURRENT_USER } from '../actions/types';
+import { SET_USER } from '../actions/types';
 
 const initialState = {
   isAutheticated: false,
-  user: {}
+  user: {},
+  id: ''
 };
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
       return {
         ...state,
-        user: action.payload,
-        isAutheticated: true
+        isAutheticated: action.payload.isAutheticated,
+        user: action.payload.userType,
+        id: action.payload.id
       };
-    case CLEAR_ERRORS:
-      return {};
-    case SET_CURRENT_USER: {
-      return {
-        ...state,
-        isAutheticated: true,
-        user: action.payload.userType
-      };
-    }
     default: {
       return state;
     }

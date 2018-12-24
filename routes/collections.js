@@ -12,9 +12,9 @@ router.get(
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     try {
-      const { id, type } = req.user;
+      const { id, userType } = req.user;
       const { data, name, sum } = await Collection.findOne({ _id: id });
-      res.json({ data, name, type, sum });
+      res.json({ data, name, userType, sum });
     } catch (e) {
       res.json(e);
     }

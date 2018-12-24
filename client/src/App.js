@@ -11,17 +11,14 @@ import store from './store';
 import './App.css';
 import { Provider } from 'react-redux';
 import setAxiosHeader from './utils/setAxiosHeader';
-import { setCurrentUser } from './actions/authActions';
+import { setUser } from './actions/authActions';
 import jwt_decode from 'jwt-decode';
 
-// Check for token
+//set user from token to redux, before app render
 if (localStorage.jwtToken) {
-  // Set auth token header auth
   setAxiosHeader(localStorage.jwtToken);
-  // Decode token and get user info and exp
   const decoded = jwt_decode(localStorage.jwtToken);
-  // Set user and isAuthenticated
-  store.dispatch(setCurrentUser(decoded));
+  store.dispatch(setUser(decoded));
 }
 
 class App extends Component {
