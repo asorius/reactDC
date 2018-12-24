@@ -23,3 +23,6 @@ button {
   height: 100vh;
   vertical-align: center;
 }
+.del_icon:hover {
+  cursor: pointer;
+}

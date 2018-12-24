@@ -1,11 +1,12 @@
 import {
   GET_COLLECTION,
-  // ADDTO_COLLECTION,
+  ADDTO_COLLECTION,
   // DELETE_COLLECTION_ITEM,
   // DELETE_COLLECTION_ITEMS,
   // DELETE_COLLECTION,
   COLLECTION_LOADING,
-  LOGOUT
+  LOGOUT,
+  DELETE_COLLECTION
 } from '../actions/types';
 
 const initialState = {
@@ -23,6 +24,18 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: true
+      };
+    case ADDTO_COLLECTION:
+      return {
+        ...state,
+        loading: false,
+        collection: action.payload
+      };
+    case DELETE_COLLECTION:
+      return {
+        ...state,
+        loading: false,
+        collection: null
       };
     case LOGOUT:
       return {

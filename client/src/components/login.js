@@ -41,7 +41,6 @@ class Login extends Component {
                 <input
                   id="input_text"
                   type="text"
-                  data-length="10"
                   name="name"
                   value={this.state.name}
                   onChange={this.onChange}

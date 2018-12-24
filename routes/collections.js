@@ -26,23 +26,25 @@ router.post(
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     try {
-      const { id } = req.user;
+      const { id, userType } = req.user;
       const date = moment().format('MMM Do YYYY, h:mm a');
-      req.body.amount = parseFloat(req.body.amount).toFixed(2);
       const _id = idGenerator();
-      const input = { ...req.body, date, _id };
       const { errors, isValid } = validateAdditionInput(req.body);
       // Check Validation
       if (!isValid) {
         return res.status(400).json(errors);
       }
+      req.body.amount = parseFloat(req.body.amount).toFixed(2);
+      const input = { ...req.body, date, _id };
+
       const updatedCollection = await Collection.findByIdAndUpdate(
         id,
         { $push: { data: { ...input } } },
         { new: true }
       );
       await updatedCollection.save();
-      res.json({ sum: updatedCollection.sum, data: updatedCollection.data });
+      const { data, name, sum } = updatedCollection;
+      res.json({ data, name, userType, sum });
     } catch (error) {
       res.json({ error });
     }
@@ -54,17 +56,16 @@ router.delete(
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     try {
-      const { id } = req.user;
+      const { id, userType } = req.user;
       const deletionId = req.params.id;
-      req.body.amount = parseFloat(req.body.amount).toFixed(2);
-
       const updatedCollection = await Collection.findByIdAndUpdate(
         id,
         { $pull: { data: { _id: deletionId } } },
         { new: true }
       );
       await updatedCollection.save();
-      res.json({ sum: updatedCollection.sum, data: updatedCollection.data });
+      const { data, name, sum } = updatedCollection;
+      res.json({ data, name, userType, sum });
     } catch (error) {
       res.json({ error });
     }
@@ -76,17 +77,14 @@ router.delete(
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     try {
-      const { id } = req.user;
+      const { id, userType } = req.user;
       const updatedCollection = await Collection.findByIdAndUpdate(
         id,
         { data: [] },
         { new: true }
       );
       await updatedCollection.save();
-      const deleted = updatedCollection.data.length === 0 ? true : false;
-      res.json({
-        deleted
-      });
+      res.json({ data, name, userType, sum });
     } catch (error) {
       res.json({ error });
     }
@@ -100,10 +98,13 @@ router.delete(
     try {
       const { id } = req.user;
       const collection = await Collection.findByIdAndRemove(id);
-
-      res.json({ collection, deleted: true });
-    } catch {
-      res.status(400).send({ deleted: false });
+      if (collection) {
+        res.json({ deleted: true });
+      } else {
+        res.json({ deleted: false, error: 'idk' });
+      }
+    } catch (e) {
+      res.status(400).send({ deleted: false, e });
     }
   }
 );

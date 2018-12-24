@@ -12,7 +12,6 @@ class Main extends Component {
 
   render() {
     const { user } = this.props.auth;
-    const auth = this.props.auth.isAuthenticated;
     const { collection, loading } = this.props.collection;
     let content;
     if (collection === null || loading) {

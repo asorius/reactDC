@@ -4,7 +4,9 @@ import {
   LOGOUT,
   COLLECTION_LOADING,
   GET_ERRORS,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  ADDTO_COLLECTION,
+  DELETE_COLLECTION
 } from './types';
 import axios from 'axios';
 import setAxiosHeader from '../utils/setAxiosHeader';
@@ -48,10 +50,62 @@ export const getCollection = () => dispatch => {
     })
     .catch(error => dispatch({ type: GET_COLLECTION, payload: null }));
 };
-export const addToCollection = () => dispatch => {};
-export const deleteCollectionItem = () => dispatch => {};
-export const deleteCollectionItems = () => dispatch => {};
-export const deleteCollection = () => dispatch => {};
+export const addToCollection = data => dispatch => {
+  axios
+    .post('/collections/add', data)
+    .then(res => {
+      //response looks like: { data, name, userType, sum }
+      dispatch({
+        type: ADDTO_COLLECTION,
+        payload: res.data
+      });
+    })
+    .catch(error =>
+      dispatch({ type: GET_ERRORS, payload: error.response.data })
+    );
+};
+export const deleteCollectionItem = id => dispatch => {
+  axios
+    .delete(`/collections/delete/data/${id}`)
+    .then(res => {
+      //response looks like: { data, name, userType, sum }
+      dispatch({
+        type: GET_COLLECTION,
+        payload: res.data
+      });
+    })
+    .catch(error =>
+      dispatch({ type: GET_ERRORS, payload: error.response.data })
+    );
+};
+export const deleteCollectionItems = () => dispatch => {
+  axios
+    .delete('/collections/delete/data')
+    .then(res => {
+      //response looks like: { data, name, userType, sum }
+      dispatch({
+        type: GET_COLLECTION,
+        payload: res.data
+      });
+    })
+    .catch(error =>
+      dispatch({ type: GET_ERRORS, payload: error.response.data })
+    );
+};
+export const deleteCollection = () => dispatch => {
+  axios
+    .delete('/collections/delete')
+    .then(res => {
+      //response looks like: { collection, deleted: true }
+
+      dispatch({
+        type: DELETE_COLLECTION
+      });
+    })
+    .catch(error =>
+      dispatch({ type: GET_ERRORS, payload: error.response.data })
+    );
+};
 //LOG OUT
 export const logoutUser = () => dispatch => {
   localStorage.removeItem('jwtToken');
