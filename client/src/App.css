@@ -9,7 +9,7 @@ body {
   color: white;
 }
 .landing_actions {
-  background-color: rgba(255, 255, 255, 0.575);
+  background-color: rgba(255, 255, 255, 0.842);
   border-radius: 1rem;
   height: 20rem;
   display: flex;
@@ -25,4 +25,9 @@ button {
 }
 .del_icon:hover {
   cursor: pointer;
+}
+.action_form {
+  background-color: rgba(255, 255, 255, 0.842);
+  padding: 2rem;
+  border-radius: 1rem;
 }

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loginUser, clearErrors } from '../actions/authActions';
+import { Link } from 'react-router-dom';
+
 class Login extends Component {
   state = {
     name: '',
@@ -35,6 +37,12 @@ class Login extends Component {
       <div className="container">
         <h1>login</h1>
         <div className="row">
+          <div className="row">
+            <Link className="btn btn-small waves-effect waves-light" to="/">
+              Back
+              <i className="material-icons left">call_received</i>
+            </Link>
+          </div>
           <form className="col s12" onSubmit={this.onSubmit}>
             <div className="row">
               <div className="input-field col s6">

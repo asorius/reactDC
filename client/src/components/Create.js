@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createCollection } from '../actions/collectionActions';
 import PropTypes from 'prop-types';
 import { clearErrors } from '../actions/authActions';
+import { Link } from 'react-router-dom';
 class Create extends Component {
   state = {
     name: '',
@@ -28,9 +29,15 @@ class Create extends Component {
   render() {
     const { errors } = this.props;
     return (
-      <div className="container">
+      <div className="container ">
         <h1>create</h1>
-        <div className="row">
+        <div className="row right">
+          <Link className="btn btn-small waves-effect waves-light" to="/">
+            Back
+            <i className="material-icons left">call_received</i>
+          </Link>
+        </div>
+        <div className="row action_form action_form">
           <form className="col s12" onSubmit={this.onSubmit}>
             <div className="row">
               <div className="input-field col s6">
