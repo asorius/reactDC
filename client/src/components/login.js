@@ -39,73 +39,83 @@ class Login extends Component {
         <div className="row center">
           <h1>Log into Collection</h1>
         </div>
-
-        <div className="row action_form center">
-          <div className="col s12 m8 offset-m2 center">
-            <form onSubmit={this.onSubmit}>
-              <div className="row">
-                <div className="input-field col s12 m10 offset-m1">
-                  <input
-                    id="input_text"
-                    type="text"
-                    name="name"
-                    value={this.state.name}
-                    onChange={this.onChange}
-                    maxLength="10"
-                    minLength="1"
-                    className={classnames({
-                      invalid: errors.name
-                    })}
-                    autoComplete="off"
-                  />
-                  <label htmlFor="input_text">Name of collection</label>
-
-                  {errors ? (
-                    <span className="helper-text red-text">{errors.name}</span>
-                  ) : null}
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="input-field col s12 m10 offset-m1">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                    maxLength="15"
-                    minLength="5"
-                    className={classnames({
-                      invalid: errors.password
-                    })}
-                  />
-                  <label htmlFor="password">Password</label>
-                  {errors ? (
-                    <span className="helper-text red-text">
-                      {errors.password}
-                    </span>
-                  ) : null}
-                </div>
-              </div>
-
-              <button
-                className="btn waves-effect waves-light"
-                type="submit"
-                name="action"
-              >
-                Login
-                <i className="material-icons right">send</i>
-              </button>
-            </form>
-          </div>
-        </div>
         <div className="row">
-          <div className="col right">
-            <Link className="btn btn-small waves-effect waves-light" to="/">
-              Back
-              <i className="material-icons left">call_received</i>
-            </Link>
+          <div className="col s12 m8 offset-m2 l6 offset-l3">
+            <div className="row action_form center ">
+              <div className="col s12 m8 offset-m2 center">
+                <form onSubmit={this.onSubmit}>
+                  <div className="row">
+                    <div className="input-field col s12 m10 offset-m1">
+                      <input
+                        id="input_text"
+                        type="text"
+                        name="name"
+                        value={this.state.name}
+                        onChange={this.onChange}
+                        maxLength="10"
+                        minLength="1"
+                        className={classnames({
+                          invalid: errors.name
+                        })}
+                        autoComplete="off"
+                      />
+                      <label htmlFor="input_text">Name of collection</label>
+
+                      {errors ? (
+                        <span className="helper-text red-text">
+                          {errors.name}
+                        </span>
+                      ) : null}
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="input-field col s12 m10 offset-m1">
+                      <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        value={this.state.password}
+                        onChange={this.onChange}
+                        maxLength="15"
+                        minLength="5"
+                        className={classnames({
+                          invalid: errors.password
+                        })}
+                      />
+                      <label htmlFor="password">Password</label>
+                      {errors ? (
+                        <span className="helper-text red-text">
+                          {errors.password}
+                        </span>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="row">
+                      <div className="col s12">
+                        <button
+                          className="btn waves-effect waves-light"
+                          type="submit"
+                          name="action"
+                        >
+                          Login
+                          <i className="material-icons right">send</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col  right">
+                <Link className="btn btn-small waves-effect waves-light" to="/">
+                  Back
+                  <i className="material-icons left">call_received</i>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
