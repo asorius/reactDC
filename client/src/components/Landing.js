@@ -12,14 +12,20 @@ class Landing extends Component {
           <div className="col s12 m6 offset-m3 landing_actions">
             <div className="row ">
               <div className="col s12 center">
-                <Link to="/create" className="waves-effect waves-light btn">
+                <Link
+                  to="/create"
+                  className="waves-effect waves-light btn btn-large"
+                >
                   Create New
                 </Link>
               </div>
             </div>
             <div className="row">
               <div className="col s12 center">
-                <Link to="/login" className="waves-effect waves-light btn">
+                <Link
+                  to="/login"
+                  className="waves-effect waves-light btn btn-large"
+                >
                   Login
                 </Link>
               </div>
