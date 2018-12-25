@@ -10,8 +10,8 @@ module.exports = function validateCreateInput(data) {
     ? data.password_admin
     : '';
 
-  if (!Validator.isLength(data.name, { min: 2, max: 30 })) {
-    errors.name = 'Name must be between 2 and 30 characters';
+  if (!Validator.isLength(data.name, { min: 2, max: 10 })) {
+    errors.name = 'Name must be between 2 and 10 characters';
   }
 
   if (Validator.isEmpty(data.name)) {
@@ -28,11 +28,11 @@ module.exports = function validateCreateInput(data) {
     errors.password_admin = 'Password must be at least 5 characters';
   }
 
-  if (Validator.isEmpty(data.password_admin)) {
-    errors.password_admin = 'Admin Password field is required';
-  }
   if (Validator.equals(data.password, data.password_admin)) {
     errors.password_admin = 'Passwords must not match';
+  }
+  if (Validator.isEmpty(data.password_admin)) {
+    errors.password_admin = 'Admin Password field is required';
   }
   return {
     errors,

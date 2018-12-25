@@ -9,7 +9,7 @@ class Landing extends Component {
           <h1>Debt Collector</h1>
         </div>
         <div className="row center">
-          <div className="col s10 m6 landing_actions">
+          <div className="col s12 m6 offset-m3 landing_actions">
             <div className="row ">
               <div className="col s12 center">
                 <Link to="/create" className="waves-effect waves-light btn">
