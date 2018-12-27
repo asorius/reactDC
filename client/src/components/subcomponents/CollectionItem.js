@@ -14,20 +14,23 @@ class CollectionItem extends Component {
     this.props.deleteCollectionItem(id);
   };
   render() {
-    const { amount, details } = this.props.element;
+    const { amount, details, date } = this.props.element;
     const id = this.props.element._id;
     return (
       <tr key={id}>
-        <td>{amount}</td>
+        <td>{amount} </td>
         <td>{details}</td>
-        <td>
-          <i
-            onClick={this.deleteFn}
-            className="material-icons del_icon red-text"
-          >
-            delete_forever
-          </i>
-        </td>
+        <td>{date}</td>
+        {this.props.auth.user === 'admin' ? (
+          <td>
+            <i
+              onClick={this.deleteFn}
+              className="material-icons del_icon red-text"
+            >
+              delete_forever
+            </i>
+          </td>
+        ) : null}
       </tr>
     );
   }

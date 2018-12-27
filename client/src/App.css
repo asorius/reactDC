@@ -31,3 +31,21 @@ button {
   padding: 2rem;
   border-radius: 1rem;
 }
+.user_data_table {
+  width: 80%;
+  margin: 0 auto;
+}
+td {
+  width: 20rem;
+}
+tbody:last-child {
+  border-bottom: 1px solid white;
+}
+.user_data_container {
+  background: rgba(0, 0, 0, 0.849);
+}
+.add_container {
+  background: rgba(0, 0, 0, 0.849);
+  padding: 1rem;
+  border-bottom: 1px solid white;
+}

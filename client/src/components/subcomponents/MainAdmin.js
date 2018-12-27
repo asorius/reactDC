@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CollectionItem from './CollectionItem';
-import Preloader from '../../utils/Preloader';
 import {
   addToCollection,
   deleteCollectionItems,
@@ -48,14 +47,13 @@ class MainAdmin extends Component {
   render() {
     const { errors } = this.props;
     const { name, sum, data } = this.props.collection.collection;
-    const { collection } = this.props;
     let list = data.map(element => (
       <CollectionItem element={element} key={element._id} />
     ));
     return (
       <div>
         <h1>{name}</h1>
-        <form className="col s12" onSubmit={this.onSubmit}>
+        <form className="col s12 add_container" onSubmit={this.onSubmit}>
           <div className="row center">
             <div className="input-field col s12 m6">
               <input
@@ -90,12 +88,13 @@ class MainAdmin extends Component {
             </button>
           </div>
         </form>
-        <div className="row">
-          <table className="striped">
+        <div className="row user_data_container center">
+          <table className="striped user_data_table">
             <thead>
               <tr>
                 <th>Amount</th>
                 <th>Details</th>
+                <th>Date</th>
               </tr>
             </thead>
 
@@ -104,12 +103,12 @@ class MainAdmin extends Component {
           <div className="row">In Total: {sum}</div>
         </div>
         <div className="row center">
-          <div className="col s12 m3">
+          <div className="col s12 m3 offset-m3">
             <button
               onClick={this.onDeleteItems}
               className="waves-effect waves-light btn"
             >
-              Delete List
+              Delete Data
             </button>
           </div>
           <div className="col s12 m3">
@@ -117,7 +116,7 @@ class MainAdmin extends Component {
               onClick={this.onDeleteAll}
               className="waves-effect waves-light btn"
             >
-              Delete Account
+              Del Account
             </button>
           </div>
         </div>

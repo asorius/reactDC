@@ -31,6 +31,7 @@ class Login extends Component {
     };
     this.props.loginUser(dataToSend);
   };
+
   render() {
     const { errors } = this.props;
 
@@ -55,7 +56,7 @@ class Login extends Component {
                         maxLength="10"
                         minLength="1"
                         className={classnames({
-                          invalid: errors.name
+                          invalid: errors.name || errors.error
                         })}
                         autoComplete="off"
                       />
@@ -63,7 +64,7 @@ class Login extends Component {
 
                       {errors ? (
                         <span className="helper-text red-text">
-                          {errors.name}
+                          {errors.error || errors.name}
                         </span>
                       ) : null}
                     </div>
@@ -80,7 +81,7 @@ class Login extends Component {
                         maxLength="15"
                         minLength="5"
                         className={classnames({
-                          invalid: errors.password
+                          invalid: errors.password || errors.error
                         })}
                       />
                       <label htmlFor="password">Password</label>

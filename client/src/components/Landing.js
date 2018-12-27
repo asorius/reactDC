@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Landing extends Component {
+  //sketchy check
+  componentDidMount() {
+    if (localStorage.jwtToken) {
+      this.props.history.push('/collections');
+    }
+  }
   render() {
     return (
       <div className="container">
