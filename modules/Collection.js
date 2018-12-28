@@ -29,7 +29,7 @@ collectionSchema.pre('save', function(next) {
   const allSum = collection.data.reduce((accumulator, currentValue) => {
     return accumulator + Number(currentValue.amount);
   }, initialValue);
-  collection.sum = allSum;
+  collection.sum = allSum.toFixed(2);
   next();
 });
 module.exports = Collection = mongoose.model('collection', collectionSchema);

@@ -51,11 +51,16 @@ class MainAdmin extends Component {
       <CollectionItem element={element} key={element._id} />
     ));
     return (
-      <div>
-        <h1>{name}</h1>
-        <form className="col s12 add_container" onSubmit={this.onSubmit}>
+      <div className="row center">
+        <div className="col s12">
+          <h1>{name}</h1>
+        </div>
+        <form
+          className="col s12 m8 offset-m2 add_container"
+          onSubmit={this.onSubmit}
+        >
           <div className="row center">
-            <div className="input-field col s12 m6">
+            <div className="input-field col s12 m6 ">
               <input
                 id="amount"
                 type="text"
@@ -63,13 +68,14 @@ class MainAdmin extends Component {
                 onChange={this.onChange}
                 name="amount"
                 autoComplete="off"
+                className="white-text"
               />
               <label htmlFor="amount">Amount</label>
               {errors ? (
                 <span className="helper-text red-text">{errors.amount}</span>
               ) : null}
             </div>
-            <div className="input-field col s12 m6">
+            <div className="input-field col s12 m6 ">
               <input
                 id="details"
                 type="text"
@@ -77,6 +83,7 @@ class MainAdmin extends Component {
                 onChange={this.onChange}
                 name="details"
                 autoComplete="off"
+                className="white-text"
               />
               <label htmlFor="details">Details</label>
               {errors ? (
@@ -88,7 +95,7 @@ class MainAdmin extends Component {
             </button>
           </div>
         </form>
-        <div className="row user_data_container center">
+        <div className="col s12 m8 offset-m2 user_data_container center">
           <table className="striped user_data_table">
             <thead>
               <tr>
@@ -98,12 +105,14 @@ class MainAdmin extends Component {
               </tr>
             </thead>
 
-            <tbody>{list}</tbody>
+            <tbody className="scrolled">{list}</tbody>
           </table>
-          <div className="row">In Total: {sum}</div>
+          <div className="row">
+            <h5> In Total: {sum} &#xa3;</h5>
+          </div>
         </div>
         <div className="row center">
-          <div className="col s12 m3 offset-m3">
+          <div className="col s12 m3 offset-m3 logout ">
             <button
               onClick={this.onDeleteItems}
               className="waves-effect waves-light btn"
@@ -111,7 +120,7 @@ class MainAdmin extends Component {
               Delete Data
             </button>
           </div>
-          <div className="col s12 m3">
+          <div className="col s12 m3 logout">
             <button
               onClick={this.onDeleteAll}
               className="waves-effect waves-light btn"

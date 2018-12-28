@@ -16,10 +16,12 @@ class MainUser extends Component {
       <CollectionItem element={element} key={element._id} />
     ));
     return (
-      <div>
-        <h1>{name}</h1>
+      <div className="row center">
+        <div className="col s12">
+          <h1>{name}</h1>
+        </div>
 
-        <div className="row user_data_container center">
+        <div className="col s12 m8 offset-m2 user_data_container ">
           <table className="striped user_data_table">
             <thead>
               <tr>
@@ -36,13 +38,14 @@ class MainUser extends Component {
             <h5> In Total: {sum} &#xa3;</h5>
           </div>
         </div>
-
-        <button
-          onClick={this.onLogout}
-          className="waves-effect waves-light btn"
-        >
-          <i className="material-icons left">directions_run</i>Log Out
-        </button>
+        <div className="col s12 logout">
+          <button
+            onClick={this.onLogout}
+            className="waves-effect waves-light btn"
+          >
+            <i className="material-icons left">directions_run</i>Log Out
+          </button>
+        </div>
       </div>
     );
   }

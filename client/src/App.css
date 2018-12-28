@@ -36,10 +36,14 @@ button {
   margin: 0 auto;
 }
 td {
-  width: 20rem;
+  width: 15rem;
 }
 tbody:last-child {
   border-bottom: 1px solid white;
+}
+.scrolled {
+  max-height: 20rem;
+  overflow-y: scroll;
 }
 .user_data_container {
   background: rgba(0, 0, 0, 0.849);
@@ -48,4 +52,10 @@ tbody:last-child {
   background: rgba(0, 0, 0, 0.849);
   padding: 1rem;
   border-bottom: 1px solid white;
+}
+.delete_item_button {
+  width: 3rem;
+}
+.logout {
+  margin-top: 1rem;
 }

@@ -51,6 +51,8 @@ export const getCollection = () => dispatch => {
     .catch(error => dispatch({ type: GET_COLLECTION, payload: null }));
 };
 export const addToCollection = data => dispatch => {
+  dispatch(clearErrors());
+
   axios
     .post('/collections/add', data)
     .then(res => {

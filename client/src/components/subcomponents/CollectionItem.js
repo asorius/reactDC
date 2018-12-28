@@ -22,7 +22,7 @@ class CollectionItem extends Component {
         <td>{details}</td>
         <td>{date}</td>
         {this.props.auth.user === 'admin' ? (
-          <td>
+          <td className="delete_item_button">
             <i
               onClick={this.deleteFn}
               className="material-icons del_icon red-text"
