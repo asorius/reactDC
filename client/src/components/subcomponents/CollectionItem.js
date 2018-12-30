@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   deleteCollectionItem,
-  clearErrors
+  clearErrors,
+  clearMessages
 } from '../../actions/collectionActions';
 class CollectionItem extends Component {
   componentWillUnmount() {
@@ -12,6 +13,9 @@ class CollectionItem extends Component {
   deleteFn = () => {
     const id = this.props.element._id;
     this.props.deleteCollectionItem(id);
+    setTimeout(() => {
+      this.props.clearMessages();
+    }, 2000);
   };
   render() {
     const { amount, details, date } = this.props.element;
@@ -38,17 +42,21 @@ class CollectionItem extends Component {
 const mapStateToProps = state => ({
   errors: state.errors,
   auth: state.auth,
-  collection: state.collection
+  collection: state.collection,
+  messages: state.messages
 });
 CollectionItem.propTypes = {
   auth: PropTypes.object.isRequired,
   collection: PropTypes.object.isRequired,
-  deleteCollectionItem: PropTypes.func.isRequired
+  messages: PropTypes.object.isRequired,
+  deleteCollectionItem: PropTypes.func.isRequired,
+  clearMessages: PropTypes.func.isRequired
 };
 export default connect(
   mapStateToProps,
   {
     deleteCollectionItem,
-    clearErrors
+    clearErrors,
+    clearMessages
   }
 )(CollectionItem);

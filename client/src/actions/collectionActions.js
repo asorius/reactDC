@@ -6,7 +6,9 @@ import {
   GET_ERRORS,
   CLEAR_ERRORS,
   ADDTO_COLLECTION,
-  DELETE_COLLECTION
+  DELETE_COLLECTION,
+  CLEAR_MESSAGE,
+  SET_MESSAGE
 } from './types';
 import axios from 'axios';
 import setAxiosHeader from '../utils/setAxiosHeader';
@@ -56,6 +58,7 @@ export const addToCollection = data => dispatch => {
   axios
     .post('/collections/add', data)
     .then(res => {
+      dispatch({ type: SET_MESSAGE, payload: { text: 'Added!', type: true } });
       //response looks like: { data, name, userType, sum }
       dispatch({
         type: ADDTO_COLLECTION,
@@ -70,6 +73,10 @@ export const deleteCollectionItem = id => dispatch => {
   axios
     .delete(`/collections/delete/data/${id}`)
     .then(res => {
+      dispatch({
+        type: SET_MESSAGE,
+        payload: { text: 'Removed!', type: false }
+      });
       //response looks like: { data, name, userType, sum }
       dispatch({
         type: GET_COLLECTION,
@@ -126,5 +133,12 @@ export const setCollectionLoading = () => {
 export const clearErrors = () => {
   return {
     type: CLEAR_ERRORS
+  };
+};
+
+//CLEAR MESSAGES
+export const clearMessages = () => {
+  return {
+    type: CLEAR_MESSAGE
   };
 };

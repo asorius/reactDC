@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import CollectionItem from './CollectionItem';
 import {
   addToCollection,
   deleteCollectionItems,
   deleteCollection,
   logoutUser,
-  clearErrors
+  clearErrors,
+  clearMessages
 } from '../../actions/collectionActions';
 import { setUser } from '../../actions/authActions';
 class MainAdmin extends Component {
@@ -15,6 +17,7 @@ class MainAdmin extends Component {
     amount: '',
     details: ''
   };
+
   componentWillUnmount() {
     this.props.clearErrors();
   }
@@ -25,6 +28,9 @@ class MainAdmin extends Component {
     e.preventDefault();
     const data = this.state;
     this.props.addToCollection(data);
+    setTimeout(() => {
+      this.props.clearMessages();
+    }, 2000);
     this.setState({
       amount: '',
       details: ''
@@ -47,9 +53,11 @@ class MainAdmin extends Component {
   render() {
     const { errors } = this.props;
     const { name, sum, data } = this.props.collection.collection;
+    const { text } = this.props.messages;
     let list = data.map(element => (
       <CollectionItem element={element} key={element._id} />
     ));
+
     return (
       <div className="row center">
         <div className="col s12">
@@ -90,9 +98,21 @@ class MainAdmin extends Component {
                 <span className="helper-text red-text">{errors.details}</span>
               ) : null}
             </div>
-            <button type="submit" className="waves-effect waves-light btn">
-              <i className="material-icons left">done</i>Add
-            </button>
+
+            {text ? (
+              <button
+                className={classnames('black-text btn red', {
+                  [' green lighten-2']: this.props.messages.type
+                })}
+              >
+                <i className="material-icons left">done_all</i>
+                {text}
+              </button>
+            ) : (
+              <button type="submit" className="waves-effect waves-light btn">
+                <i className="material-icons left">add_circle_outline</i>Add
+              </button>
+            )}
           </div>
         </form>
         <div className="col s12 m8 offset-m2 user_data_container center">
@@ -142,15 +162,18 @@ class MainAdmin extends Component {
 const mapStateToProps = state => ({
   errors: state.errors,
   auth: state.auth,
-  collection: state.collection
+  collection: state.collection,
+  messages: state.messages
 });
 MainAdmin.propTypes = {
   auth: PropTypes.object.isRequired,
   collection: PropTypes.object.isRequired,
+  messages: PropTypes.object.isRequired,
   addToCollection: PropTypes.func.isRequired,
   deleteCollectionItems: PropTypes.func.isRequired,
   deleteCollection: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
+  clearMessages: PropTypes.func.isRequired,
   setUser: PropTypes.func.isRequired
 };
 export default connect(
@@ -161,6 +184,7 @@ export default connect(
     deleteCollectionItems,
     logoutUser,
     setUser,
-    clearErrors
+    clearErrors,
+    clearMessages
   }
 )(MainAdmin);
