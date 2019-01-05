@@ -15,7 +15,8 @@ import { setUser } from '../../actions/authActions';
 class MainAdmin extends Component {
   state = {
     amount: '',
-    details: ''
+    details: '',
+    dropmenu: false
   };
 
   componentWillUnmount() {
@@ -50,6 +51,26 @@ class MainAdmin extends Component {
     this.props.deleteCollection();
     this.props.logoutUser();
   };
+
+  //DROP DOWN MENU STUFF//
+
+  showMenu = event => {
+    event.preventDefault();
+
+    this.setState({ dropmenu: true }, () => {
+      document.addEventListener('click', this.closeMenu);
+    });
+  };
+
+  closeMenu = event => {
+    this.setState({ dropmenu: true });
+    if (!this.dropdownMenu.contains(event.target)) {
+      this.setState({ dropmenu: false }, () => {
+        document.removeEventListener('click', this.closeMenu);
+      });
+    }
+  };
+  //
   render() {
     const { errors } = this.props;
     const { name, sum, data } = this.props.collection.collection;
@@ -131,30 +152,74 @@ class MainAdmin extends Component {
             <h5> In Total: {sum} &#xa3;</h5>
           </div>
         </div>
-        <div className="row center">
-          <div className="col s12 m3 offset-m3 logout ">
-            <button
-              onClick={this.onDeleteItems}
-              className="waves-effect waves-light btn"
-            >
-              Delete Data
-            </button>
+
+        <div className="hide-on-small-only bottom-menu">
+          <div className="row center">
+            <div className="col s12 m3 offset-m3 logout ">
+              <button
+                onClick={this.onDeleteItems}
+                className="waves-effect waves-light btn"
+              >
+                Delete List
+              </button>
+            </div>
+            <div className="col s12 m3 logout">
+              <button
+                onClick={this.onDeleteAll}
+                className="waves-effect waves-light btn"
+              >
+                Delete Acc.
+              </button>
+            </div>
           </div>
-          <div className="col s12 m3 logout">
-            <button
-              onClick={this.onDeleteAll}
-              className="waves-effect waves-light btn"
-            >
-              Del Account
-            </button>
-          </div>
+          <button
+            onClick={this.onLogout}
+            className="waves-effect waves-light btn"
+          >
+            <i className="material-icons left">directions_run</i>Log Out
+          </button>
         </div>
-        <button
-          onClick={this.onLogout}
-          className="waves-effect waves-light btn"
-        >
-          <i className="material-icons left">directions_run</i>Log Out
-        </button>
+
+        <div className="hide-on-med-and-up">
+          <div className="row">
+            <button onClick={this.showMenu} className="btn col s12 center">
+              <i className="material-icons left">menu</i>
+            </button>
+          </div>
+
+          {this.state.dropmenu ? (
+            <ul
+              ref={element => {
+                this.dropdownMenu = element;
+              }}
+            >
+              <li>
+                <button
+                  onClick={this.onDeleteItems}
+                  className="waves-effect waves-light btn"
+                >
+                  Delete List
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={this.onDeleteAll}
+                  className="waves-effect waves-light btn"
+                >
+                  Delete Acc.
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={this.onLogout}
+                  className="waves-effect waves-light btn"
+                >
+                  <i className="material-icons left">directions_run</i>Log Out
+                </button>
+              </li>
+            </ul>
+          ) : null}
+        </div>
       </div>
     );
   }
