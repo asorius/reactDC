@@ -56,18 +56,18 @@ class MainAdmin extends Component {
 
   showMenu = event => {
     event.preventDefault();
-
     this.setState({ dropmenu: true }, () => {
       document.addEventListener('click', this.closeMenu);
     });
   };
 
   closeMenu = event => {
-    this.setState({ dropmenu: true });
     if (!this.dropdownMenu.contains(event.target)) {
       this.setState({ dropmenu: false }, () => {
         document.removeEventListener('click', this.closeMenu);
       });
+    } else {
+      return;
     }
   };
   //
@@ -75,9 +75,14 @@ class MainAdmin extends Component {
     const { errors } = this.props;
     const { name, sum, data } = this.props.collection.collection;
     const { text } = this.props.messages;
-    let list = data.map(element => (
-      <CollectionItem element={element} key={element._id} />
-    ));
+    let list;
+    if (data.length !== 0) {
+      list = data.map(element => (
+        <CollectionItem element={element} key={element._id} />
+      ));
+    } else {
+      list = null;
+    }
 
     return (
       <div className="row center">
@@ -174,21 +179,22 @@ class MainAdmin extends Component {
           </div>
           <button
             onClick={this.onLogout}
-            className="waves-effect waves-light btn"
+            className="waves-effect deep-orange darken-4 btn"
           >
             <i className="material-icons left">directions_run</i>Log Out
           </button>
         </div>
 
-        <div className="hide-on-med-and-up">
+        <div className="hide-on-med-and-up  drop-container col s12 center">
           <div className="row">
             <button onClick={this.showMenu} className="btn col s12 center">
-              <i className="material-icons left">menu</i>
+              <i className="material-icons center">menu</i>
             </button>
           </div>
 
           {this.state.dropmenu ? (
             <ul
+              className="drop-ul s12"
               ref={element => {
                 this.dropdownMenu = element;
               }}
@@ -196,7 +202,7 @@ class MainAdmin extends Component {
               <li>
                 <button
                   onClick={this.onDeleteItems}
-                  className="waves-effect waves-light btn"
+                  className="waves-effect  grey darken-3 btn"
                 >
                   Delete List
                 </button>
@@ -204,7 +210,7 @@ class MainAdmin extends Component {
               <li>
                 <button
                   onClick={this.onDeleteAll}
-                  className="waves-effect waves-light btn"
+                  className="waves-effect grey darken-3 btn"
                 >
                   Delete Acc.
                 </button>
@@ -212,7 +218,7 @@ class MainAdmin extends Component {
               <li>
                 <button
                   onClick={this.onLogout}
-                  className="waves-effect waves-light btn"
+                  className="waves-effect deep-orange darken-4 btn"
                 >
                   <i className="material-icons left">directions_run</i>Log Out
                 </button>

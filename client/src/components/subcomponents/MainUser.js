@@ -41,7 +41,7 @@ class MainUser extends Component {
         <div className="col s12 logout">
           <button
             onClick={this.onLogout}
-            className="waves-effect waves-light btn"
+            className="waves-effect deep-orange darken-4 btn"
           >
             <i className="material-icons left">directions_run</i>Log Out
           </button>
