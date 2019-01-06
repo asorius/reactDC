@@ -22,9 +22,12 @@ module.exports = function validateCreateInput(data) {
     errors.name = 'Name field is required';
   }
   //check USER password requirements
-  // if (!Validator.isLength(data.password, { min: 5, max: 15 })) {
-  //   errors.password = 'Password must be at least 5 characters';
-  // }
+  if (data.password.length > 0) {
+    if (!Validator.isLength(data.password, { min: 5, max: 15 })) {
+      errors.password = 'Password must be at least 5 characters';
+    }
+  }
+
   // if (Validator.isEmpty(data.password)) {
   //   errors.password = 'Password field is required';
   // }

@@ -77,8 +77,14 @@ tbody:last-child {
 .input-field {
   margin-bottom: 0;
 }
-a {
+.userSettings {
+  color: rgb(76, 76, 206);
   cursor: pointer;
   text-decoration: underline;
   font-style: italic;
+}
+.userSettingContainer {
+  border-radius: 0.5rem;
+  border: 3px solid #26a69a;
+  background-color: rgb(228, 228, 228);
 }

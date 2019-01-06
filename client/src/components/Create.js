@@ -51,100 +51,99 @@ class Create extends Component {
             <div className="row action_form center">
               <div className="col s12 m8 offset-m2 center">
                 <form onSubmit={this.onSubmit}>
-                  {!this.state.showUserMenu ? (
-                    <React.Fragment>
-                      <div className="row">
-                        <div className="input-field col s12 m10 offset-m1">
-                          <input
-                            id="input_text"
-                            type="text"
-                            name="name"
-                            value={this.state.name}
-                            onChange={this.onChange}
-                            maxLength="10"
-                            minLength="1"
-                            className={classnames({
-                              invalid: errors.name
-                            })}
-                            autoComplete="off"
-                          />
-                          <label htmlFor="input_text">Name of collection</label>
+                  <div className="row">
+                    <div className="input-field col s12 m10 offset-m1">
+                      <input
+                        id="input_text"
+                        type="text"
+                        name="name"
+                        value={this.state.name}
+                        onChange={this.onChange}
+                        maxLength="10"
+                        minLength="1"
+                        className={classnames({
+                          invalid: errors.name
+                        })}
+                        autoComplete="off"
+                      />
+                      <label htmlFor="input_text">Name of collection</label>
 
-                          <span
-                            className={classnames('helper-text', {
-                              'red-text': errors.name
-                            })}
-                          >
-                            {errors.name ? errors.name : '1 - 10 characters'}
-                          </span>
-                        </div>
+                      <span
+                        className={classnames('helper-text', {
+                          'red-text': errors.name
+                        })}
+                      >
+                        {errors.name ? errors.name : '1 - 10 characters'}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="input-field col s12 m10 offset-m1">
+                      <input
+                        id="password_admin"
+                        type="password"
+                        name="password_admin"
+                        value={this.state.password_admin}
+                        onChange={this.onChange}
+                        minLength="5"
+                        maxLength="15"
+                        className={classnames({
+                          invalid: errors.password_admin
+                        })}
+                      />
+                      <label htmlFor="password_admin">Password</label>
+                      <span
+                        className={classnames('helper-text', {
+                          'red-text': errors.password_admin
+                        })}
+                      >
+                        {errors.password_admin
+                          ? errors.password_admin
+                          : '5 - 15 characters'}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="input-field col s12 m10 offset-m1">
+                      <input
+                        id="password_admin2"
+                        type="password"
+                        name="password_admin2"
+                        value={this.state.password_admin2}
+                        onChange={this.onChange}
+                        minLength="5"
+                        maxLength="15"
+                        className={classnames({
+                          invalid: errors.password_admin2
+                        })}
+                      />
+                      <label htmlFor="password_admin2">Confirm password</label>
+                      <span
+                        className={classnames('helper-text', {
+                          'red-text': errors.password_admin2
+                        })}
+                      >
+                        {errors.password_admin2
+                          ? errors.password_admin2
+                          : 'Make sure passwords match.'}
+                      </span>
+                    </div>
+                  </div>
+                  {this.state.showBtn ? (
+                    <div className="row">
+                      <div className="userSettings" onClick={this.showUserMenu}>
+                        Click to set password for normal users to log in
                       </div>
-                      <div className="row">
-                        <div className="input-field col s12 m10 offset-m1">
-                          <input
-                            id="password_admin"
-                            type="password"
-                            name="password_admin"
-                            value={this.state.password_admin}
-                            onChange={this.onChange}
-                            minLength="5"
-                            maxLength="15"
-                            className={classnames({
-                              invalid: errors.password_admin
-                            })}
-                          />
-                          <label htmlFor="password_admin">Admin password</label>
-                          <span
-                            className={classnames('helper-text', {
-                              'red-text': errors.password_admin
-                            })}
-                          >
-                            {errors.password_admin
-                              ? errors.password_admin
-                              : '5 - 15 characters'}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="input-field col s12 m10 offset-m1">
-                          <input
-                            id="password_admin2"
-                            type="password"
-                            name="password_admin2"
-                            value={this.state.password_admin2}
-                            onChange={this.onChange}
-                            minLength="5"
-                            maxLength="15"
-                            className={classnames({
-                              invalid: errors.password_admin2
-                            })}
-                          />
-                          <label htmlFor="password_admin2">
-                            Confirm admin password
-                          </label>
-                          <span
-                            className={classnames('helper-text', {
-                              'red-text': errors.password_admin2
-                            })}
-                          >
-                            {errors.password_admin2
-                              ? errors.password_admin2
-                              : 'Make sure passwords match.'}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <a onClick={this.showUserMenu}>
-                          Set password for normal users to log in
-                        </a>
-                      </div>
-                      ) : ( )}
-                    </React.Fragment>
+                    </div>
                   ) : (
-                    <div className="row lighten-3">
-                      <div className="col s12">
-                        <a onClick={this.showUserMenu}>Back to creation</a>
+                    <div className="row">
+                      <div className="userSettings" onClick={this.showUserMenu}>
+                        Click to close user settings
                       </div>
+                    </div>
+                  )}
+                  {this.state.showUserMenu ? (
+                    <div className="row userSettingContainer">
                       <div className="row">
                         <div className="input-field col s12 m10 offset-m1">
                           <input
@@ -154,12 +153,12 @@ class Create extends Component {
                             value={this.state.password}
                             onChange={this.onChange}
                             maxLength="15"
-                            minLength="5"
+                            // minLength="5"
                             className={classnames({
                               invalid: errors.password
                             })}
                           />
-                          <label htmlFor="password">Password</label>
+                          <label htmlFor="password">User Password</label>
                           <span
                             className={classnames('helper-text', {
                               'red-text': errors.password
@@ -186,7 +185,9 @@ class Create extends Component {
                               invalid: errors.password2
                             })}
                           />
-                          <label htmlFor="password2">Confirm password</label>
+                          <label htmlFor="password2">
+                            Confirm user password
+                          </label>
                           <span
                             className={classnames('helper-text', {
                               'red-text': errors.password2
@@ -199,7 +200,7 @@ class Create extends Component {
                         </div>
                       </div>
                     </div>
-                  )}
+                  ) : null}
 
                   <button
                     className="btn waves-effect waves-light"
