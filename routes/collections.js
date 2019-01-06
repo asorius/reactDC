@@ -84,9 +84,10 @@ router.delete(
         { new: true }
       );
       await updatedCollection.save();
+      const { data, name, sum } = updatedCollection;
       res.json({ data, name, userType, sum });
     } catch (error) {
-      res.json({ error });
+      res.status(400).send({ deleted: false, error });
     }
   }
 );
