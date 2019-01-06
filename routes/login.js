@@ -18,7 +18,12 @@ router.post('/', async (req, res) => {
     return res.status(400).json({ error: 'Name or password incorrect' });
   }
 
-  const normal = await bcrypt.compare(password, collection.password);
+  let normal;
+  if (collection.password) {
+    normal = await bcrypt.compare(password, collection.password);
+  } else {
+    normal = false;
+  }
   const admin = await bcrypt.compare(password, collection.password_admin);
   if (normal) {
     const token = await jwtGenerator({ userType: 'user', id: collection._id });

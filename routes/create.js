@@ -20,14 +20,23 @@ router.post('/', async (req, res) => {
   //Passwords hashing
   const salt = await bcrypt.genSalt(10);
   const adminHashed = await bcrypt.hash(password_admin, salt);
-  const normalHashed = await bcrypt.hash(password, salt);
-
-  //Create new collection instance
-  const newCollection = new Collection({
-    name,
-    password: normalHashed,
-    password_admin: adminHashed
-  });
+  let newCollection;
+  if (password.length !== 0) {
+    //if password was sent and actualy has letters in it , hash it
+    const normalHashed = await bcrypt.hash(password, salt);
+    //then create new collection with admin and user password
+    newCollection = new Collection({
+      name,
+      password: normalHashed,
+      password_admin: adminHashed
+    });
+  } else {
+    //else create collection with only admin password set
+    newCollection = new Collection({
+      name,
+      password_admin: adminHashed
+    });
+  }
 
   try {
     await newCollection.save();

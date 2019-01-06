@@ -13,8 +13,7 @@ const collectionSchema = new Schema({
     required: true
   },
   password: {
-    type: String,
-    required: true
+    type: String
   },
   sum: {
     type: Number,

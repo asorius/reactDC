@@ -22,21 +22,21 @@ module.exports = function validateCreateInput(data) {
     errors.name = 'Name field is required';
   }
   //check USER password requirements
-  if (!Validator.isLength(data.password, { min: 5, max: 15 })) {
-    errors.password = 'Password must be at least 5 characters';
-  }
-  if (Validator.isEmpty(data.password)) {
-    errors.password = 'Password field is required';
-  }
+  // if (!Validator.isLength(data.password, { min: 5, max: 15 })) {
+  //   errors.password = 'Password must be at least 5 characters';
+  // }
+  // if (Validator.isEmpty(data.password)) {
+  //   errors.password = 'Password field is required';
+  // }
   //
   //check USER password confirmation
 
   if (!Validator.equals(data.password, data.password2)) {
     errors.password2 = 'Passwords must match';
   }
-  if (Validator.isEmpty(data.password2)) {
-    errors.password2 = 'Confirmation field is required';
-  }
+  // if (Validator.isEmpty(data.password2)) {
+  //   errors.password2 = 'Confirmation field is required';
+  // }
   //
 
   //ADMIN password validation
