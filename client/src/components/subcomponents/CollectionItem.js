@@ -15,6 +15,7 @@ class CollectionItem extends Component {
     this.props.deleteCollectionItem(id);
     setTimeout(() => {
       this.props.clearMessages();
+      this.props.clearErrors();
     }, 2000);
   };
   render() {
@@ -24,7 +25,12 @@ class CollectionItem extends Component {
       <tr key={id}>
         <td>{amount} </td>
         <td>{details}</td>
-        <td>{date}</td>
+        {this.props.auth.user === 'user' ? (
+          <td>{date}</td>
+        ) : (
+          <td className="hide-on-small-only">{date}</td>
+        )}
+
         {this.props.auth.user === 'admin' ? (
           <td className="delete_item_button">
             <i

@@ -31,12 +31,14 @@ class MainAdmin extends Component {
     this.props.addToCollection(data);
     setTimeout(() => {
       this.props.clearMessages();
+      this.props.clearErrors();
     }, 2000);
     this.setState({
       amount: '',
       details: ''
     });
   };
+
   onLogout = e => {
     e.preventDefault();
     this.props.logoutUser();
@@ -62,6 +64,9 @@ class MainAdmin extends Component {
   };
 
   closeMenu = event => {
+    if (!this.dropdownMenu) {
+      return;
+    }
     if (!this.dropdownMenu.contains(event.target)) {
       this.setState({ dropmenu: false }, () => {
         document.removeEventListener('click', this.closeMenu);
@@ -102,7 +107,6 @@ class MainAdmin extends Component {
                 onChange={this.onChange}
                 name="amount"
                 autoComplete="off"
-                className="white-text"
               />
               <label htmlFor="amount">Amount</label>
               {errors ? (
@@ -117,7 +121,6 @@ class MainAdmin extends Component {
                 onChange={this.onChange}
                 name="details"
                 autoComplete="off"
-                className="white-text"
               />
               <label htmlFor="details">Details</label>
               {errors ? (
@@ -142,51 +145,47 @@ class MainAdmin extends Component {
           </div>
         </form>
         <div className="col s12 m8 offset-m2 user_data_container center">
-          <table className="striped user_data_table">
+          <table className="highlight centered user_data_table">
             <thead>
               <tr>
                 <th>Amount</th>
                 <th>Details</th>
-                <th>Date</th>
+                <th className="hide-on-small-only">Date</th>
               </tr>
             </thead>
 
             <tbody className="scrolled">{list}</tbody>
           </table>
-          <div className="row">
+          <div className="row black-text">
             <h5> In Total: {sum} &#xa3;</h5>
           </div>
         </div>
 
         <div className="hide-on-small-only bottom-menu">
-          <div className="row center">
-            <div className="col s12 m3 offset-m3 logout ">
-              <button
-                onClick={this.onDeleteItems}
-                className="waves-effect waves-light btn"
-              >
-                Delete List
-              </button>
-            </div>
-            <div className="col s12 m3 logout">
-              <button
-                onClick={this.onDeleteAll}
-                className="waves-effect waves-light btn"
-              >
-                Delete Acc.
-              </button>
-            </div>
+          <div className="col s12 m6 offset-m3 center action-buttons">
+            <button
+              onClick={this.onDeleteItems}
+              className="waves-effect waves-light btn"
+            >
+              Delete List
+            </button>
+            <button
+              onClick={this.onDeleteAll}
+              className="waves-effect waves-light btn"
+            >
+              Delete Acc.
+            </button>
+            <button
+              onClick={this.onLogout}
+              className="waves-effect deep-orange darken-4 btn"
+            >
+              <i className="material-icons left">directions_run</i>Log Out
+            </button>
           </div>
-          <button
-            onClick={this.onLogout}
-            className="waves-effect deep-orange darken-4 btn"
-          >
-            <i className="material-icons left">directions_run</i>Log Out
-          </button>
         </div>
 
         <div className="hide-on-med-and-up  drop-container col s12 center">
-          <div className="row">
+          <div className="row fixed">
             <button onClick={this.showMenu} className="btn col s12 center">
               <i className="material-icons center">menu</i>
             </button>

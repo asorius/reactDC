@@ -8,15 +8,19 @@ body {
   background-size: cover;
   color: white;
 }
+.nomb {
+  margin-bottom: 0;
+}
 .landing_actions {
-  background-color: rgba(255, 255, 255, 0.842);
+  background-color: rgba(255, 255, 255, 0.942);
   border-radius: 1rem;
   height: 20rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-button {
+button,
+.btn-landing {
   width: 10rem;
 }
 .preloader {
@@ -27,31 +31,40 @@ button {
   cursor: pointer;
 }
 .action_form {
-  background-color: rgba(255, 255, 255, 0.842);
+  background-color: rgba(255, 255, 255, 0.942);
   padding: 2rem;
   border-radius: 1rem;
 }
+.user_data_container {
+  background: rgba(255, 255, 255, 0.942);
+  border-radius: 0 0 1rem 1rem;
+}
 .user_data_table {
+  background: transparent;
+
+  color: black;
   width: 80%;
   margin: 0 auto;
 }
 td {
   width: 15rem;
 }
+thead {
+  border-bottom: 3px solid black;
+}
 tbody:last-child {
-  border-bottom: 1px solid white;
+  border-bottom: 3px solid black;
 }
 .scrolled {
   max-height: 20rem;
   overflow-y: scroll;
 }
-.user_data_container {
-  background: rgba(0, 0, 0, 0.849);
-}
+
 .add_container {
-  background: rgba(0, 0, 0, 0.849);
+  background: rgba(255, 255, 255, 0.942);
   padding: 1rem;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid black;
+  border-radius: 1rem 1rem 0 0;
 }
 .delete_item_button {
   width: 3rem;
@@ -64,8 +77,9 @@ tbody:last-child {
   position: absolute;
   bottom: 0;
   left: 0;
-  background: rgba(255, 255, 255, 0.856);
-  border: 3px solid #26a69a;
+  background: #26a699e1;
+  border-top: 3px solid #26a69a;
+  border-bottom: 3px solid #26a69a;
   border-radius: 0.5rem;
 }
 .drop-ul li {
@@ -85,6 +99,21 @@ tbody:last-child {
 }
 .userSettingContainer {
   border-radius: 0.5rem;
-  border: 3px solid #26a69a;
-  background-color: rgb(228, 228, 228);
+  border-top: 3px solid #26a69a;
+  border-bottom: 3px solid #26a69a;
+}
+.input-field label {
+  color: black;
+}
+.input-field input[type='text']:focus + label {
+  color: black;
+}
+.action-buttons {
+  margin: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.fixed {
+  margin: 1rem;
 }

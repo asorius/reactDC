@@ -45,52 +45,48 @@ class Login extends Component {
             <div className="row action_form center ">
               <div className="col s12 m8 offset-m2 center">
                 <form onSubmit={this.onSubmit}>
-                  <div className="row">
-                    <div className="input-field col s12 m10 offset-m1">
-                      <input
-                        id="input_text"
-                        type="text"
-                        name="name"
-                        value={this.state.name}
-                        onChange={this.onChange}
-                        maxLength="10"
-                        minLength="1"
-                        className={classnames({
-                          invalid: errors.name || errors.error
-                        })}
-                        autoComplete="off"
-                      />
-                      <label htmlFor="input_text">Name of collection</label>
+                  <div className="input-field col s12 m10 offset-m1">
+                    <input
+                      id="input_text"
+                      type="text"
+                      name="name"
+                      value={this.state.name}
+                      onChange={this.onChange}
+                      maxLength="10"
+                      minLength="1"
+                      className={classnames({
+                        invalid: errors.name || errors.error
+                      })}
+                      autoComplete="off"
+                    />
+                    <label htmlFor="input_text">Name of collection</label>
 
-                      {errors ? (
-                        <span className="helper-text red-text">
-                          {errors.error || errors.name}
-                        </span>
-                      ) : null}
-                    </div>
+                    {errors ? (
+                      <span className="helper-text red-text">
+                        {errors.error || errors.name}
+                      </span>
+                    ) : null}
                   </div>
 
-                  <div className="row">
-                    <div className="input-field col s12 m10 offset-m1">
-                      <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        value={this.state.password}
-                        onChange={this.onChange}
-                        maxLength="15"
-                        minLength="5"
-                        className={classnames({
-                          invalid: errors.password || errors.error
-                        })}
-                      />
-                      <label htmlFor="password">Password</label>
-                      {errors ? (
-                        <span className="helper-text red-text">
-                          {errors.password}
-                        </span>
-                      ) : null}
-                    </div>
+                  <div className="input-field col s12 m10 offset-m1">
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      value={this.state.password}
+                      onChange={this.onChange}
+                      maxLength="15"
+                      minLength="5"
+                      className={classnames({
+                        invalid: errors.password || errors.error
+                      })}
+                    />
+                    <label htmlFor="password">Password</label>
+                    {errors ? (
+                      <span className="helper-text red-text">
+                        {errors.password}
+                      </span>
+                    ) : null}
                   </div>
                   <div className="row">
                     <div className="row">
@@ -109,7 +105,7 @@ class Login extends Component {
                 </form>
               </div>
             </div>
-            <div className="row">
+            <div className="row nomb">
               <div className="col  right">
                 <Link className="btn btn-small waves-effect waves-light" to="/">
                   Back

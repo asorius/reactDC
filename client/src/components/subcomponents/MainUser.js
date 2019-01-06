@@ -21,8 +21,11 @@ class MainUser extends Component {
           <h1>{name}</h1>
         </div>
 
-        <div className="col s12 m8 offset-m2 user_data_container ">
-          <table className="striped user_data_table">
+        <div
+          className="col s12 m8 offset-m2 user_data_container "
+          style={{ borderRadius: '1rem' }}
+        >
+          <table className="highlight centered user_data_table">
             <thead>
               <tr>
                 <th>Amount</th>
@@ -33,7 +36,7 @@ class MainUser extends Component {
 
             <tbody>{list}</tbody>
           </table>
-          <div className="row">
+          <div className="row black-text">
             {' '}
             <h5> In Total: {sum} &#xa3;</h5>
           </div>
