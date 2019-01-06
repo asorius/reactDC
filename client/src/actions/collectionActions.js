@@ -20,7 +20,9 @@ export const createCollection = data => dispatch => {
   const collectionData = {
     name: data.name,
     password: data.password,
-    password_admin: data.password_admin
+    password2: data.password2,
+    password_admin: data.password_admin,
+    password_admin2: data.password_admin2
   };
   const { history } = data;
   axios

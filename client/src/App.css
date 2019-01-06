@@ -74,9 +74,11 @@ tbody:last-child {
 .drop-container {
   position: relative;
 }
-input {
-  cursor: pointer;
-}
 .input-field {
   margin-bottom: 0;
+}
+a {
+  cursor: pointer;
+  text-decoration: underline;
+  font-style: italic;
 }
