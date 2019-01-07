@@ -131,7 +131,7 @@ class MainAdmin extends Component {
             {text ? (
               <button
                 className={classnames('black-text btn red', {
-                  [' green lighten-2']: this.props.messages.type
+                  ' green lighten-2': this.props.messages.type
                 })}
               >
                 <i className="material-icons left">done_all</i>
@@ -162,7 +162,7 @@ class MainAdmin extends Component {
         </div>
 
         <div className="hide-on-small-only bottom-menu">
-          <div className="col s12 m6 offset-m3 center action-buttons">
+          <div className="col s12 m10 offset-m1  l8 offset-l2 center action-buttons">
             <button
               onClick={this.onDeleteItems}
               className="waves-effect waves-light btn"

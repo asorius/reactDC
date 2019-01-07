@@ -55,8 +55,9 @@ thead {
 tbody:last-child {
   border-bottom: 3px solid black;
 }
-.scrolled {
-  max-height: 20rem;
+table {
+  display: block;
+  max-height: 18rem;
   overflow-y: scroll;
 }
 
