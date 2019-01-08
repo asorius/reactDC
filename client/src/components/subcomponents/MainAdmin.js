@@ -131,7 +131,7 @@ class MainAdmin extends Component {
             {text ? (
               <button
                 className={classnames('black-text btn red', {
-                  ' green lighten-2': this.props.messages.type
+                  ' green lighten-3': this.props.messages.type
                 })}
               >
                 <i className="material-icons left">done_all</i>

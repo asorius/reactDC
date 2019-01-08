@@ -131,14 +131,18 @@ class Create extends Component {
                   </div>
                   {this.state.showBtn ? (
                     <div className="row">
-                      <div className="userSettings" onClick={this.showUserMenu}>
-                        Click to set password for normal users to log in
+                      <div
+                        className="userSettings center"
+                        onClick={this.showUserMenu}
+                      >
+                        <div>Setup for Users</div>
+                        <i className="material-icons">keyboard_arrow_down</i>
                       </div>
                     </div>
                   ) : (
                     <div className="row">
                       <div className="userSettings" onClick={this.showUserMenu}>
-                        Click to close user settings
+                        <i className="material-icons">keyboard_arrow_up</i>
                       </div>
                     </div>
                   )}
