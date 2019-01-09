@@ -164,17 +164,18 @@ class MainAdmin extends Component {
         <div className="hide-on-small-only bottom-menu">
           <div className="col s12 m10 offset-m1  l8 offset-l2 center action-buttons">
             <button
-              onClick={this.onDeleteItems}
-              className="waves-effect waves-light btn"
-            >
-              Delete List
-            </button>
-            <button
               onClick={this.onDeleteAll}
               className="waves-effect waves-light btn"
             >
               Delete Acc.
             </button>
+            <button
+              onClick={this.onDeleteItems}
+              className="waves-effect waves-light btn"
+            >
+              Delete List
+            </button>
+
             <button
               onClick={this.onLogout}
               className="waves-effect deep-orange darken-4 btn"
@@ -200,20 +201,21 @@ class MainAdmin extends Component {
             >
               <li>
                 <button
-                  onClick={this.onDeleteItems}
-                  className="waves-effect  grey darken-3 btn"
-                >
-                  Delete List
-                </button>
-              </li>
-              <li>
-                <button
                   onClick={this.onDeleteAll}
                   className="waves-effect grey darken-3 btn"
                 >
                   Delete Acc.
                 </button>
               </li>
+              <li>
+                <button
+                  onClick={this.onDeleteItems}
+                  className="waves-effect  grey darken-3 btn"
+                >
+                  Delete List
+                </button>
+              </li>
+
               <li>
                 <button
                   onClick={this.onLogout}

@@ -20,7 +20,7 @@ class Landing extends Component {
               <div className="col s12 center">
                 <Link to="/create">
                   <button className="waves-effect waves-light btn btn-large btn-landing">
-                    Create New
+                    Create
                   </button>
                 </Link>
               </div>
