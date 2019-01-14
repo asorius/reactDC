@@ -1,5 +1,7 @@
 * {
-  --see-through-white: rgba(255, 255, 255, 0.942);
+  --wrapper-background: rgba(255, 255, 255, 0.942);
+  --shadow: 0px 0px 3px 1px rgb(85, 85, 85);
+  --teal-green: #26a69a;
 }
 body {
   font-family: 'Open Sans Condensed', sans-serif;
@@ -11,11 +13,9 @@ body {
   background-size: cover;
   color: white;
 }
-.nomb {
-  margin-bottom: 0;
-}
+/* landing styling */
 .landing_actions {
-  background-color: var(--see-through-white);
+  background-color: var(--wrapper-background);
   border-radius: 1rem;
   height: 20rem;
   display: flex;
@@ -35,89 +35,20 @@ h1 {
   margin: 3rem auto;
   width: 75%;
 }
-.del_icon:hover {
-  cursor: pointer;
-}
-.action_form {
-  background-color: var(--see-through-white);
-  padding: 2rem;
-  border-radius: 1rem;
-}
-.user_data_container {
-  background: var(--see-through-white);
-  border-radius: 0 0 1rem 1rem;
-}
-.user_data_table {
-  background: transparent;
-  -webkit-box-shadow: 0px 9px 11px -9px #000000;
-  box-shadow: 0px 9px 11px -9px #000000;
-  color: black;
-  width: 80%;
-  margin: 0 auto;
-}
-td {
-  width: 15rem;
-}
 
-thead {
-  border-bottom: 3px solid black;
-}
-tbody:last-child {
-  border-bottom: 3px solid black;
-}
-table {
-  display: block;
-  max-height: 18rem;
-  overflow-y: auto;
-}
-@media only screen and (min-width: 425px) {
-  table {
-    max-height: 25rem;
-  }
-}
-.add_container {
-  background: var(--see-through-white);
-  padding: 1rem;
-  border-bottom: 1px solid black;
-  border-radius: 1rem 1rem 0 0;
-}
+/* login/create form styling */
 
-.delete_item_button {
-  width: 3rem;
-}
-.logout {
-  margin-top: 1rem;
-}
-.drop-ul {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background: #26a699e1;
-  border-top: 3px solid #26a69a;
-  border-bottom: 3px solid #26a69a;
+.userSettingContainer {
   border-radius: 0.5rem;
-}
-.drop-ul li {
-  margin: 0.5rem;
-}
-.drop-container {
-  position: relative;
-}
-.input-field {
-  margin-bottom: 0;
+  border-top: 3px solid var(--teal-green);
+  border-bottom: 3px solid var(--teal-green);
 }
 .userSettings {
-  color: rgb(18, 201, 161);
+  color: var(--teal-green);
   cursor: pointer;
   text-decoration: underline;
   font-style: italic;
   vertical-align: center;
-}
-.userSettingContainer {
-  border-radius: 0.5rem;
-  border-top: 3px solid #26a69a;
-  border-bottom: 3px solid #26a69a;
 }
 .input-field label {
   color: black;
@@ -131,13 +62,131 @@ table {
   flex-direction: row;
   justify-content: space-around;
 }
-.fixed {
-  margin: 1rem;
+/* admin panel styling */
+.main_col {
+  background: var(--wrapper-background);
+  border-radius: 1rem;
+  width: 80%;
+  margin: 0 auto;
 }
+.main_col__form {
+  padding: 1rem;
+  border-bottom: 1px solid black;
+}
+
+.data_table {
+  background: transparent;
+  -webkit-box-shadow: 0px 9px 11px -9px #000000;
+  box-shadow: 0px 9px 11px -9px #000000;
+  color: black;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+table {
+  border-radius: 1rem 1rem 0 0;
+  display: block;
+  max-height: 18rem;
+  overflow-y: auto;
+  position: relative;
+}
+/* setting max height of table to 25rems on non-mobile devices */
+@media only screen and (min-width: 425px) {
+  table {
+    max-height: 25rem;
+  }
+}
+th {
+  border-radius: 0;
+  border: none;
+}
+td {
+  width: 15rem;
+}
+thead > tr {
+  -webkit-box-shadow: 0px 9px 11px -9px var(--teal-green);
+  box-shadow: 0px 9px 11px -9px var(--teal-green);
+}
+tbody:last-child {
+  border-bottom: 3px solid black;
+}
+/* icons and buttons styling */
+
+.del_icon:hover {
+  cursor: pointer;
+}
+.delete_item_button {
+  width: 3rem;
+}
+.logout {
+  margin-top: 1rem;
+}
+/* message overlay */
+
+.message {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.action_form {
+  background-color: var(--wrapper-background);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+/* mobile dropdown styling */
+.drop-ul {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #26a699e1;
+  border-top: 3px solid var(--teal-green);
+  border-bottom: 3px solid var(--teal-green);
+  border-radius: 0.5rem;
+}
+.drop-ul li {
+  margin: 0.5rem;
+}
+.drop-container {
+  position: relative;
+  margin-top: 0.5rem;
+}
+.fixed {
+  margin-bottom: 0;
+}
+/* preloader styling */
 .preloader {
   margin-top: 9rem;
   padding-top: 9rem;
-  background: var(--see-through-white);
+  background: var(--wrapper-background);
   height: 25rem;
   border-radius: 0.5rem;
+}
+/* --preload end */
+/* --------------------scrollbar styling for larger than phone devices*/
+@media only screen and (min-width: 425px) {
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(185, 185, 185);
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #26a699b7;
+  }
 }

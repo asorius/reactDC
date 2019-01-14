@@ -94,73 +94,84 @@ class MainAdmin extends Component {
         <div className="col s12">
           <h1>{name}</h1>
         </div>
-        <form
-          className="col s12 m8 offset-m2 add_container"
-          onSubmit={this.onSubmit}
-        >
-          <div className="row center">
-            <div className="input-field col s12 m6 ">
-              <input
-                id="amount"
-                type="text"
-                value={this.state.amount}
-                onChange={this.onChange}
-                name="amount"
-                autoComplete="off"
-              />
-              <label htmlFor="amount">Amount</label>
-              {errors ? (
-                <span className="helper-text red-text">{errors.amount}</span>
-              ) : null}
-            </div>
-            <div className="input-field col s12 m6 ">
-              <input
-                id="details"
-                type="text"
-                value={this.state.details}
-                onChange={this.onChange}
-                name="details"
-                autoComplete="off"
-              />
-              <label htmlFor="details">Details</label>
-              {errors ? (
-                <span className="helper-text red-text">{errors.details}</span>
-              ) : null}
-            </div>
+        <div className="col s12  m8 offset-m2 main_col">
+          <div className="row ">
+            <form
+              className="col s12 m8 offset-m2 main_col__form"
+              onSubmit={this.onSubmit}
+            >
+              <div className="row center">
+                <div className="input-field col s12 m6 ">
+                  <input
+                    id="amount"
+                    type="text"
+                    value={this.state.amount}
+                    onChange={this.onChange}
+                    name="amount"
+                    autoComplete="off"
+                  />
+                  <label htmlFor="amount">Amount</label>
+                  {errors ? (
+                    <span className="helper-text red-text">
+                      {errors.amount}
+                    </span>
+                  ) : null}
+                </div>
+                <div className="input-field col s12 m6 ">
+                  <input
+                    id="details"
+                    type="text"
+                    value={this.state.details}
+                    onChange={this.onChange}
+                    name="details"
+                    autoComplete="off"
+                  />
+                  <label htmlFor="details">Details</label>
+                  {errors ? (
+                    <span className="helper-text red-text">
+                      {errors.details}
+                    </span>
+                  ) : null}
+                </div>
 
-            {text ? (
-              <button
-                className={classnames('black-text btn red', {
-                  ' green lighten-3': this.props.messages.type
-                })}
-              >
-                <i className="material-icons left">done_all</i>
-                {text}
-              </button>
-            ) : (
-              <button type="submit" className="waves-effect waves-light btn">
-                <i className="material-icons left">add_circle_outline</i>Add
-              </button>
-            )}
+                <button type="submit" className="waves-effect waves-light btn">
+                  <i className="material-icons left">add_circle_outline</i>Add
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
-        <div className="col s12 m8 offset-m2 user_data_container center">
-          <table className="highlight centered user_data_table">
-            <thead>
-              <tr>
-                <th>Amount</th>
-                <th>Details</th>
-                <th className="hide-on-small-only">Date</th>
-              </tr>
-            </thead>
+          <div className="row">
+            <div className="col s12 m8 offset-m2">
+              <table className="highlight centered data_table">
+                <thead className="teal lighten-2 white-text">
+                  {text ? (
+                    <div
+                      className={classnames('black-text red message', {
+                        ' green lighten-3': this.props.messages.type
+                      })}
+                    >
+                      <div className="icon_wrapper">
+                        <i className="material-icons medium center">done_all</i>
+                        <h4> {text}</h4>
+                      </div>
+                    </div>
+                  ) : null}
+                  <tr>
+                    <th>Amount</th>
+                    <th>Details</th>
+                    <th className="hide-on-small-only">Date</th>
+                    <th />
+                  </tr>
+                </thead>
 
-            <tbody className="scrolled">{list}</tbody>
-          </table>
-          <div className="row black-text">
-            <h5> In Total: {sum} &#xa3;</h5>
+                <tbody>{list}</tbody>
+              </table>
+              <div className="row black-text">
+                <h5> In Total: {sum} &#xa3;</h5>
+              </div>
+            </div>
           </div>
         </div>
-
         <div className="hide-on-small-only bottom-menu">
           <div className="col s12 m10 offset-m1  l8 offset-l2 center action-buttons">
             <button
@@ -191,7 +202,6 @@ class MainAdmin extends Component {
               <i className="material-icons center">menu</i>
             </button>
           </div>
-
           {this.state.dropmenu ? (
             <ul
               className="drop-ul s12"

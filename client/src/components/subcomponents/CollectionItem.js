@@ -22,11 +22,11 @@ class CollectionItem extends Component {
     const { amount, details, date } = this.props.element;
     const id = this.props.element._id;
     return (
-      <tr key={id}>
-        <td>{amount} </td>
-        <td>{details}</td>
+      <tr className="item" key={id}>
+        <td className="item_amount">{amount} </td>
+        <td className="item_details">{details}</td>
         {this.props.auth.user === 'user' ? (
-          <td>{date}</td>
+          <td className="item_date">{date}</td>
         ) : (
           <td className="hide-on-small-only">{date}</td>
         )}
