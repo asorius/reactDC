@@ -16,7 +16,10 @@ class MainAdmin extends Component {
   state = {
     amount: '',
     details: '',
-    dropmenu: false
+    dropmenu: false,
+    thead: React.createRef(),
+    input1: React.createRef(),
+    input2: React.createRef()
   };
 
   componentWillUnmount() {
@@ -37,6 +40,9 @@ class MainAdmin extends Component {
       amount: '',
       details: ''
     });
+    this.input1.current.blurr();
+    this.input2.current.blurr();
+    this.thead.current.focus();
   };
 
   onLogout = e => {
@@ -103,6 +109,7 @@ class MainAdmin extends Component {
               <div className="row center">
                 <div className="input-field col s12 m6 ">
                   <input
+                    ref={this.input1}
                     id="amount"
                     type="text"
                     value={this.state.amount}
@@ -119,6 +126,7 @@ class MainAdmin extends Component {
                 </div>
                 <div className="input-field col s12 m6 ">
                   <input
+                    ref={this.input2}
                     id="details"
                     type="text"
                     value={this.state.details}
@@ -143,28 +151,34 @@ class MainAdmin extends Component {
           <div className="row">
             <div className="col s12 m8 offset-m2">
               <table className="highlight centered data_table">
-                <thead className="teal lighten-2 white-text">
-                  {text ? (
-                    <div
-                      className={classnames('black-text red message', {
-                        ' green lighten-3': this.props.messages.type
-                      })}
-                    >
-                      <div className="icon_wrapper">
-                        <i className="material-icons medium center">done_all</i>
-                        <h4> {text}</h4>
-                      </div>
-                    </div>
-                  ) : null}
+                <thead ref={this.thead} className="teal lighten-2 white-text">
                   <tr>
-                    <th>Amount</th>
+                    <th className="item_amount">Amount</th>
                     <th>Details</th>
                     <th className="hide-on-small-only">Date</th>
-                    <th />
+                    <th className="del_cell" />
                   </tr>
                 </thead>
 
-                <tbody>{list}</tbody>
+                <tbody className="relate">
+                  {text ? (
+                    <tr>
+                      <td
+                        className={classnames('msg_del message', {
+                          ' msg_add': this.props.messages.type
+                        })}
+                      >
+                        <div className="icon_wrapper">
+                          <i className="material-icons medium center">
+                            done_all
+                          </i>
+                          <h4> {text}</h4>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : null}
+                  {list}
+                </tbody>
               </table>
               <div className="row black-text">
                 <h5> In Total: {sum} &#xa3;</h5>

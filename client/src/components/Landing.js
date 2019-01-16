@@ -20,7 +20,10 @@ class Landing extends Component {
               <div className="col s12 center">
                 <Link to="/create">
                   <button className="waves-effect waves-light btn btn-large btn-landing">
-                    Create
+                    <i className="lime-text material-icons">
+                      create_new_folder
+                    </i>
+                    <div className="land_btn_text">Create</div>
                   </button>
                 </Link>
               </div>
@@ -29,7 +32,8 @@ class Landing extends Component {
               <div className="col s12 center">
                 <Link to="/login">
                   <button className="waves-effect waves-light btn btn-large btn-landing">
-                    Login
+                    <i className="amber-text material-icons">folder_shared</i>
+                    <div className="land_btn_text">Login</div>
                   </button>
                 </Link>
               </div>

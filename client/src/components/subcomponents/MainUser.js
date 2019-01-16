@@ -21,12 +21,9 @@ class MainUser extends Component {
           <h1>{name}</h1>
         </div>
 
-        <div
-          className="col s12 m8 offset-m2 user_data_container "
-          style={{ borderRadius: '1rem' }}
-        >
-          <table className="highlight centered user_data_table">
-            <thead>
+        <div className="col s12  m6 offset-m3 main_col user_table">
+          <table className="highlight centered data_table">
+            <thead className="teal lighten-2 white-text">
               <tr>
                 <th>Amount</th>
                 <th>Details</th>
@@ -34,7 +31,7 @@ class MainUser extends Component {
               </tr>
             </thead>
 
-            <tbody>{list}</tbody>
+            <tbody className="relate">{list}</tbody>
           </table>
           <div className="row black-text">
             {' '}

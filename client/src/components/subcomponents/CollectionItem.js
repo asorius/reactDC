@@ -32,7 +32,7 @@ class CollectionItem extends Component {
         )}
 
         {this.props.auth.user === 'admin' ? (
-          <td className="delete_item_button">
+          <td className="delete_item_button dell_cell">
             <i
               onClick={this.deleteFn}
               className="material-icons del_icon red-text"
