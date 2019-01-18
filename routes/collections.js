@@ -71,6 +71,38 @@ router.delete(
     }
   }
 );
+
+//EDIT SINGLE ../collections/edit
+router.patch(
+  '/edit/:id',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    try {
+      const editId = req.params.id;
+      const { id, userType } = req.user;
+      const date = moment().format('MMM Do YYYY, h:mm a');
+      const { errors, isValid } = validateAdditionInput(req.body);
+      // Check Validation
+      if (!isValid) {
+        return res.status(400).json(errors);
+      }
+      req.body.amount = parseFloat(req.body.amount).toFixed(2);
+      const input = { ...req.body, date, _id: editId };
+
+      const updatedCollection = await Collection.findOneAndUpdate(
+        { _id: id, 'data._id': editId },
+        { $set: { 'data.$': { ...input } } },
+        { new: true }
+      );
+      await updatedCollection.save();
+      const { data, name, sum } = updatedCollection;
+      res.json({ data, name, userType, sum });
+    } catch (error) {
+      res.json({ error });
+    }
+  }
+);
+
 //DELETE ALL DATA ITEMS ../collections/delete/data
 router.delete(
   '/delete/data',

@@ -5,10 +5,12 @@ import {
   COLLECTION_LOADING,
   GET_ERRORS,
   CLEAR_ERRORS,
+  CLEAR_EDITION,
   ADDTO_COLLECTION,
   DELETE_COLLECTION,
   CLEAR_MESSAGE,
-  SET_MESSAGE
+  SET_MESSAGE,
+  SET_EDITION
 } from './types';
 import axios from 'axios';
 import setAxiosHeader from '../utils/setAxiosHeader';
@@ -89,6 +91,34 @@ export const deleteCollectionItem = id => dispatch => {
       dispatch({ type: GET_ERRORS, payload: error.response.data })
     );
 };
+
+export const editCollectionItem = data => dispatch => {
+  axios
+    .patch(`/collections/edit/${data.id}`, {
+      amount: data.amount,
+      details: data.details
+    })
+    .then(res => {
+      dispatch({
+        type: SET_MESSAGE,
+        payload: { text: 'Saved!', type: true }
+      });
+      //response looks like: { data, name, userType, sum }
+      dispatch({
+        type: GET_COLLECTION,
+        payload: res.data
+      });
+    })
+    .catch(error =>
+      dispatch({ type: GET_ERRORS, payload: error.response.data })
+    );
+};
+export const setEdition = data => dispatch => {
+  dispatch({
+    type: SET_EDITION,
+    payload: data
+  });
+};
 export const deleteCollectionItems = () => dispatch => {
   axios
     .delete('/collections/delete/data')
@@ -137,7 +167,12 @@ export const clearErrors = () => {
     type: CLEAR_ERRORS
   };
 };
-
+//CLEAR EDITION
+export const clearEdition = () => {
+  return {
+    type: CLEAR_EDITION
+  };
+};
 //CLEAR MESSAGES
 export const clearMessages = () => {
   return {

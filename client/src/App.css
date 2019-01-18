@@ -52,6 +52,9 @@ h1 {
   font-style: italic;
   vertical-align: center;
 }
+.userSettings i:hover {
+  border-bottom: 1px solid var(--teal-green);
+}
 .input-field label {
   color: black;
 }
@@ -86,6 +89,10 @@ h1 {
 .user_table {
   padding: 0 !important;
 }
+.user_table tr:nth-child(even) {
+  background-color: #3a3a3a;
+}
+
 .del_cell {
   width: 3rem;
 }
@@ -177,6 +184,7 @@ button {
   width: 100%;
   max-width: none;
   opacity: 0.9;
+  overflow: hidden;
 }
 .msg_del {
   background: #a62626d7;

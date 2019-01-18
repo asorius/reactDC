@@ -1,10 +1,9 @@
 import {
   GET_COLLECTION,
   ADDTO_COLLECTION,
-  // DELETE_COLLECTION_ITEM,
-  // DELETE_COLLECTION_ITEMS,
-  // DELETE_COLLECTION,
+  SET_EDITION,
   COLLECTION_LOADING,
+  CLEAR_EDITION,
   LOGOUT,
   DELETE_COLLECTION
 } from '../actions/types';
@@ -36,6 +35,16 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         collection: null
+      };
+    case SET_EDITION:
+      return {
+        ...state,
+        edition: action.payload
+      };
+    case CLEAR_EDITION:
+      return {
+        ...state,
+        edition: false
       };
     case LOGOUT:
       return {

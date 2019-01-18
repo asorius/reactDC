@@ -5,28 +5,57 @@ import classnames from 'classnames';
 import CollectionItem from './CollectionItem';
 import {
   addToCollection,
+  editCollectionItem,
   deleteCollectionItems,
   deleteCollection,
   logoutUser,
   clearErrors,
+  clearEdition,
   clearMessages
 } from '../../actions/collectionActions';
 import { setUser } from '../../actions/authActions';
 class MainAdmin extends Component {
-  state = {
-    amount: '',
-    details: '',
-    dropmenu: false,
-    thead: React.createRef(),
-    input1: React.createRef(),
-    input2: React.createRef()
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      amount: '',
+      details: '',
+      dropmenu: false
+    };
+    this.inputRef = React.createRef();
+    this.inputRef2 = React.createRef();
+    this.tbody = React.createRef();
+  }
 
   componentWillUnmount() {
     this.props.clearErrors();
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.collection.edition !== prevProps.collection.edition) {
+      const { amount, details } = this.props.collection.edition;
+      this.setState({ amount, details });
+    }
+    return;
+  }
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+  editItem = e => {
+    e.preventDefault();
+    const { _id: id } = this.props.collection.edition;
+    const { amount, details } = this.state;
+    this.props.editCollectionItem({ id, amount, details });
+    setTimeout(() => {
+      this.props.clearMessages();
+      this.props.clearErrors();
+      this.props.clearEdition();
+    }, 2000);
+    this.setState({
+      amount: '',
+      details: ''
+    });
+
+    this.tbody.current.scrollTop = 0;
   };
   onSubmit = e => {
     e.preventDefault();
@@ -35,14 +64,14 @@ class MainAdmin extends Component {
     setTimeout(() => {
       this.props.clearMessages();
       this.props.clearErrors();
+      this.props.clearEdition();
     }, 2000);
     this.setState({
       amount: '',
       details: ''
     });
-    this.input1.current.blurr();
-    this.input2.current.blurr();
-    this.thead.current.focus();
+
+    this.tbody.current.scrollTop = 0;
   };
 
   onLogout = e => {
@@ -85,6 +114,7 @@ class MainAdmin extends Component {
   render() {
     const { errors } = this.props;
     const { name, sum, data } = this.props.collection.collection;
+    const edition = this.props.collection.edition;
     const { text } = this.props.messages;
     let list;
     if (data.length !== 0) {
@@ -109,7 +139,7 @@ class MainAdmin extends Component {
               <div className="row center">
                 <div className="input-field col s12 m6 ">
                   <input
-                    ref={this.input1}
+                    ref={this.inputRef}
                     id="amount"
                     type="text"
                     value={this.state.amount}
@@ -126,7 +156,7 @@ class MainAdmin extends Component {
                 </div>
                 <div className="input-field col s12 m6 ">
                   <input
-                    ref={this.input2}
+                    ref={this.inputRef2}
                     id="details"
                     type="text"
                     value={this.state.details}
@@ -141,17 +171,29 @@ class MainAdmin extends Component {
                     </span>
                   ) : null}
                 </div>
-
-                <button type="submit" className="waves-effect waves-light btn">
-                  <i className="material-icons left">add_circle_outline</i>Add
-                </button>
+                {edition ? (
+                  <button
+                    onClick={this.editItem}
+                    className="waves-effect waves-light blue btn"
+                  >
+                    <i className="material-icons left">save</i>
+                    Save
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="waves-effect waves-light btn"
+                  >
+                    <i className="material-icons left">add_circle_outline</i>Add
+                  </button>
+                )}
               </div>
             </form>
           </div>
           <div className="row">
             <div className="col s12 m8 offset-m2">
               <table className="highlight centered data_table">
-                <thead ref={this.thead} className="teal lighten-2 white-text">
+                <thead className="teal lighten-2 white-text">
                   <tr>
                     <th className="item_amount">Amount</th>
                     <th>Details</th>
@@ -160,11 +202,11 @@ class MainAdmin extends Component {
                   </tr>
                 </thead>
 
-                <tbody className="relate">
+                <tbody ref={this.tbody} className="relate">
                   {text ? (
                     <tr>
                       <td
-                        className={classnames('msg_del message', {
+                        className={classnames('msg_del message ', {
                           ' msg_add': this.props.messages.type
                         })}
                       >
@@ -266,21 +308,25 @@ MainAdmin.propTypes = {
   collection: PropTypes.object.isRequired,
   messages: PropTypes.object.isRequired,
   addToCollection: PropTypes.func.isRequired,
+  editCollectionItem: PropTypes.func.isRequired,
   deleteCollectionItems: PropTypes.func.isRequired,
   deleteCollection: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
   clearMessages: PropTypes.func.isRequired,
+  clearEdition: PropTypes.func.isRequired,
   setUser: PropTypes.func.isRequired
 };
 export default connect(
   mapStateToProps,
   {
     addToCollection,
+    editCollectionItem,
     deleteCollection,
     deleteCollectionItems,
     logoutUser,
     setUser,
     clearErrors,
+    clearEdition,
     clearMessages
   }
 )(MainAdmin);
