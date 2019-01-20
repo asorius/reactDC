@@ -34,23 +34,26 @@ class CollectionItem extends Component {
         {this.props.auth.user === 'user' ? (
           <td className="item_date">{date}</td>
         ) : (
-          <td className="hide-on-small-only">{date}</td>
+          // <td className="hide-on-small-only">{date}</td>
+          <td className="item_date">{date}</td>
         )}
 
         {this.props.auth.user === 'admin' ? (
-          <td className="delete_item_button dell_cell">
-            <i
-              onClick={this.editFn}
-              className="material-icons del_icon blue-text"
-            >
-              edit
-            </i>
-            <i
-              onClick={this.deleteFn}
-              className="material-icons del_icon red-text"
-            >
-              delete_forever
-            </i>
+          <td className="delete_item ">
+            <div className="del_cell_item">
+              <i
+                onClick={this.editFn}
+                className="material-icons del_icon blue-text"
+              >
+                edit
+              </i>
+              <i
+                onClick={this.deleteFn}
+                className="material-icons del_icon red-text"
+              >
+                delete_forever
+              </i>
+            </div>
           </td>
         ) : null}
       </tr>

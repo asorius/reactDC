@@ -92,12 +92,12 @@ class Login extends Component {
                     <div className="row">
                       <div className="col s12">
                         <button
-                          className="btn waves-effect waves-light"
+                          className="btn waves-effect waves-light grey darken-3"
                           type="submit"
                           name="action"
                         >
                           Login
-                          <i className="material-icons right">send</i>
+                          <i className="material-icons right teal-text">send</i>
                         </button>
                       </div>
                     </div>
@@ -107,9 +107,12 @@ class Login extends Component {
             </div>
             <div className="row nomb">
               <div className="col  right">
-                <Link className="btn btn-small waves-effect waves-light" to="/">
+                <Link
+                  className="btn btn-small waves-effect waves-light grey darken-3"
+                  to="/"
+                >
                   Back
-                  <i className="material-icons left">call_received</i>
+                  <i className="material-icons left teal-text">call_received</i>
                 </Link>
               </div>
             </div>

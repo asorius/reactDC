@@ -21,9 +21,9 @@ class MainUser extends Component {
           <h1>{name}</h1>
         </div>
 
-        <div className="col s12  m6 offset-m3 main_col user_table">
+        <div className="col s12  m8 offset-m2 xl6 offset-xl3 main_col user_table">
           <table className="highlight centered data_table">
-            <thead className="teal lighten-2 white-text">
+            <thead className="grey darken-3 white-text">
               <tr>
                 <th>Amount</th>
                 <th>Details</th>
@@ -43,7 +43,8 @@ class MainUser extends Component {
             onClick={this.onLogout}
             className="waves-effect deep-orange darken-4 btn"
           >
-            <i className="material-icons left">directions_run</i>Log Out
+            <i className="material-icons left  teal-text">directions_run</i>Log
+            Out
           </button>
         </div>
       </div>

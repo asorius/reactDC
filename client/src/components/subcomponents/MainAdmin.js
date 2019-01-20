@@ -29,12 +29,14 @@ class MainAdmin extends Component {
 
   componentWillUnmount() {
     this.props.clearErrors();
+    this.props.clearEdition();
   }
   componentDidUpdate(prevProps) {
     if (this.props.collection.edition !== prevProps.collection.edition) {
       const { amount, details } = this.props.collection.edition;
       this.setState({ amount, details });
     }
+    this.tbody.current.scrollTop = 0;
     return;
   }
   onChange = e => {
@@ -50,6 +52,17 @@ class MainAdmin extends Component {
       this.props.clearErrors();
       this.props.clearEdition();
     }, 2000);
+    this.setState({
+      amount: '',
+      details: ''
+    });
+
+    this.tbody.current.scrollTop = 0;
+  };
+  closeEdition = e => {
+    e.preventDefault();
+
+    this.props.clearEdition();
     this.setState({
       amount: '',
       details: ''
@@ -82,6 +95,7 @@ class MainAdmin extends Component {
 
   onDeleteItems = () => {
     this.props.deleteCollectionItems();
+    this.setState({ dropmenu: !this.state.dropmenu });
   };
   onDeleteAll = () => {
     this.props.setUser({});
@@ -142,7 +156,7 @@ class MainAdmin extends Component {
                     ref={this.inputRef}
                     id="amount"
                     type="text"
-                    value={this.state.amount}
+                    value={this.state.amount || ''}
                     onChange={this.onChange}
                     name="amount"
                     autoComplete="off"
@@ -159,7 +173,7 @@ class MainAdmin extends Component {
                     ref={this.inputRef2}
                     id="details"
                     type="text"
-                    value={this.state.details}
+                    value={this.state.details || ''}
                     onChange={this.onChange}
                     name="details"
                     autoComplete="off"
@@ -172,32 +186,44 @@ class MainAdmin extends Component {
                   ) : null}
                 </div>
                 {edition ? (
-                  <button
-                    onClick={this.editItem}
-                    className="waves-effect waves-light blue btn"
-                  >
-                    <i className="material-icons left">save</i>
-                    Save
-                  </button>
+                  <React.Fragment>
+                    <button
+                      onClick={this.editItem}
+                      className="waves-effect waves-light blue btn"
+                    >
+                      <i className="material-icons left">save</i>
+                      Save
+                    </button>{' '}
+                    <button
+                      onClick={this.closeEdition}
+                      className="btn-floating btn-small waves-effect waves-light  blue-grey lighten-2 btn "
+                    >
+                      <i className="material-icons right">close</i>
+                    </button>
+                  </React.Fragment>
                 ) : (
                   <button
                     type="submit"
-                    className="waves-effect waves-light btn"
+                    className="waves-effect waves-light btn grey darken-3"
                   >
-                    <i className="material-icons left">add_circle_outline</i>Add
+                    <i className="material-icons left teal-text">
+                      add_circle_outline
+                    </i>
+                    Add
                   </button>
                 )}
               </div>
             </form>
           </div>
           <div className="row">
-            <div className="col s12 m8 offset-m2">
+            <div className="col s12 m10 offset-m1 ">
               <table className="highlight centered data_table">
-                <thead className="teal lighten-2 white-text">
+                <thead className="grey darken-3 white-text">
                   <tr>
                     <th className="item_amount">Amount</th>
                     <th>Details</th>
-                    <th className="hide-on-small-only">Date</th>
+                    {/* <th className="hide-on-small-only">Date</th> */}
+                    <th>Date</th>
                     <th className="del_cell" />
                   </tr>
                 </thead>
@@ -211,10 +237,10 @@ class MainAdmin extends Component {
                         })}
                       >
                         <div className="icon_wrapper">
-                          <i className="material-icons medium center">
+                          <i className="material-icons small center">
                             done_all
                           </i>
-                          <h4> {text}</h4>
+                          <p> {text}</p>
                         </div>
                       </td>
                     </tr>
@@ -228,17 +254,17 @@ class MainAdmin extends Component {
             </div>
           </div>
         </div>
-        <div className="hide-on-small-only bottom-menu">
-          <div className="col s12 m10 offset-m1  l8 offset-l2 center action-buttons">
+        <div className="hide-on-small-only bottom-menu ">
+          <div className="col s12 m10 offset-m1  l8 offset-l2 center action-buttons ">
             <button
               onClick={this.onDeleteAll}
-              className="waves-effect waves-light btn"
+              className="waves-effect waves-light btn grey lighten-2 black-text"
             >
               Delete Acc.
             </button>
             <button
               onClick={this.onDeleteItems}
-              className="waves-effect waves-light btn"
+              className="waves-effect waves-light btn grey lighten-2 black-text"
             >
               Delete List
             </button>
@@ -247,14 +273,18 @@ class MainAdmin extends Component {
               onClick={this.onLogout}
               className="waves-effect deep-orange darken-4 btn"
             >
-              <i className="material-icons left">directions_run</i>Log Out
+              <i className="material-icons left  teal-text">directions_run</i>
+              Log Out
             </button>
           </div>
         </div>
 
-        <div className="hide-on-med-and-up  drop-container col s12 center">
+        <div className="hide-on-med-and-up  drop-container col s12 center ">
           <div className="row fixed">
-            <button onClick={this.showMenu} className="btn col s12 center">
+            <button
+              onClick={this.showMenu}
+              className="btn col s12 center grey darken-3"
+            >
               <i className="material-icons center">menu</i>
             </button>
           </div>
@@ -268,7 +298,7 @@ class MainAdmin extends Component {
               <li>
                 <button
                   onClick={this.onDeleteAll}
-                  className="waves-effect grey darken-3 btn"
+                  className="waves-effect btn dropbtn"
                 >
                   Delete Acc.
                 </button>
@@ -276,7 +306,7 @@ class MainAdmin extends Component {
               <li>
                 <button
                   onClick={this.onDeleteItems}
-                  className="waves-effect  grey darken-3 btn"
+                  className="waves-effect   btn dropbtn"
                 >
                   Delete List
                 </button>
@@ -287,7 +317,10 @@ class MainAdmin extends Component {
                   onClick={this.onLogout}
                   className="waves-effect deep-orange darken-4 btn"
                 >
-                  <i className="material-icons left">directions_run</i>Log Out
+                  <i className="material-icons left teal-text">
+                    directions_run
+                  </i>
+                  Log Out
                 </button>
               </li>
             </ul>

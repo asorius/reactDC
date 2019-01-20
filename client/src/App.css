@@ -1,7 +1,7 @@
 * {
   --wrapper-background: rgba(255, 255, 255, 0.942);
   --shadow: 0px 0px 3px 1px rgb(85, 85, 85);
-  --teal-green: #26a69a;
+  --teal-green: #424242;
 }
 body {
   font-family: 'Open Sans Condensed', sans-serif;
@@ -70,7 +70,7 @@ h1 {
 /* admin panel styling */
 .main_col {
   background: var(--wrapper-background);
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   width: 80%;
   margin: 0 auto;
 }
@@ -90,11 +90,15 @@ h1 {
   padding: 0 !important;
 }
 .user_table tr:nth-child(even) {
-  background-color: #3a3a3a;
+  background-color: #e0e0e0;
 }
 
 .del_cell {
-  width: 3rem;
+  width: 5rem;
+}
+.del_cell_item {
+  display: flex;
+  width: 100%;
 }
 
 table {
@@ -123,18 +127,18 @@ tbody {
 
 /* for users */
 .user_table tbody {
-  max-height: 30rem;
+  max-height: 35rem;
 }
 
 tbody:last-child {
   border-bottom: 3px solid black;
 }
 th {
-  border-radius: 0;
-  border: none;
+  padding: 15px 5px;
 }
 td {
-  max-width: 15rem;
+  max-width: 10rem;
+  padding: 10px 5px;
 }
 /* setting max height of table to 25rems on non-mobile devices */
 @media only screen and (min-width: 425px) {
@@ -148,8 +152,8 @@ td {
 .del_icon:hover {
   cursor: pointer;
 }
-.delete_item_button {
-  width: 3rem;
+.delete_item {
+  width: 5rem;
 }
 .logout {
   margin-top: 1rem;
@@ -159,12 +163,14 @@ button {
   width: 10rem;
 }
 .btn-landing {
-  padding: 0;
-  width: 15rem;
+  padding: 5px;
+  height: 3.5rem;
+  width: 12rem;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  font-style: italic;
 }
 .land_btn_text {
   padding-left: 0.5rem;
@@ -187,11 +193,11 @@ button {
   overflow: hidden;
 }
 .msg_del {
-  background: #a62626d7;
+  background: #a62626ef;
   color: white;
 }
 .msg_add {
-  background: #3cda0cce;
+  background: #009687e3;
   color: black;
 }
 .relate {
@@ -209,7 +215,7 @@ button {
   position: absolute;
   bottom: 0;
   left: 0;
-  background: #26a699;
+  background: var(--teal-green);
   border-top: 3px solid var(--teal-green);
   border-bottom: 3px solid var(--teal-green);
   border-radius: 0.5rem;
@@ -221,6 +227,10 @@ button {
 .drop-container {
   position: relative;
   margin-top: 0.5rem;
+}
+.dropbtn {
+  background: #e0e0e0;
+  color: black;
 }
 .fixed {
   margin-bottom: 0;

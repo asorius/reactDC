@@ -125,14 +125,14 @@ class Create extends Component {
                       >
                         {errors.password_admin2
                           ? errors.password_admin2
-                          : 'Make sure passwords match.'}
+                          : 'Make sure that passwords match.'}
                       </span>
                     </div>
                   </div>
                   {this.state.showBtn ? (
                     <div className="row">
                       <div
-                        className="userSettings center"
+                        className="userSettings center teal-text"
                         onClick={this.showUserMenu}
                       >
                         <div>Setup for Users</div>
@@ -142,7 +142,9 @@ class Create extends Component {
                   ) : (
                     <div className="row">
                       <div className="userSettings" onClick={this.showUserMenu}>
-                        <i className="material-icons">keyboard_arrow_up</i>
+                        <i className="material-icons teal-text">
+                          keyboard_arrow_up
+                        </i>
                       </div>
                     </div>
                   )}
@@ -184,7 +186,7 @@ class Create extends Component {
                             value={this.state.password2}
                             onChange={this.onChange}
                             maxLength="15"
-                            minLength="5"
+                            // minLength="5"
                             className={classnames({
                               invalid: errors.password2
                             })}
@@ -207,21 +209,24 @@ class Create extends Component {
                   ) : null}
 
                   <button
-                    className="btn waves-effect waves-light"
+                    className="btn waves-effect waves-light grey darken-3"
                     type="submit"
                     name="action"
                   >
                     Create
-                    <i className="material-icons right">send</i>
+                    <i className="material-icons right teal-text">send</i>
                   </button>
                 </form>
               </div>
             </div>
             <div className="row">
               <div className="col right">
-                <Link className="btn btn-small waves-effect waves-light" to="/">
+                <Link
+                  className="btn btn-small waves-effect waves-light grey darken-3 "
+                  to="/"
+                >
                   Back
-                  <i className="material-icons left">call_received</i>
+                  <i className="material-icons left teal-text">call_received</i>
                 </Link>
               </div>
             </div>
