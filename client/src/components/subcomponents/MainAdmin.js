@@ -118,7 +118,11 @@ class MainAdmin extends Component {
     if (!this.dropdownMenu) {
       return;
     }
-    if (!this.dropdownMenu.contains(event.target)) {
+    if (this.dropdownMenu.classList.contains('closable')) {
+      this.setState({ dropmenu: false }, () => {
+        document.removeEventListener('click', this.closeMenu);
+      });
+    } else if (!this.dropdownMenu.contains(event.target)) {
       this.setState({ dropmenu: false }, () => {
         document.removeEventListener('click', this.closeMenu);
       });
@@ -307,7 +311,9 @@ class MainAdmin extends Component {
           </div>
           {this.state.dropmenu ? (
             <ul
-              className="drop-ul s12"
+              className={classnames('drop-ul s12', {
+                closable: this.state.dropmenu
+              })}
               ref={element => {
                 this.dropdownMenu = element;
               }}
