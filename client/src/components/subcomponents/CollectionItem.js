@@ -22,7 +22,7 @@ class CollectionItem extends Component {
   };
   editFn = () => {
     const { amount, details, _id } = this.props.element;
-    this.props.setEdition({ amount, details, _id });
+    this.props.setEdition({ amount, details, _id, labels: true });
   };
   render() {
     const { amount, details, date } = this.props.element;
@@ -34,7 +34,6 @@ class CollectionItem extends Component {
         {this.props.auth.user === 'user' ? (
           <td className="item_date">{date}</td>
         ) : (
-          // <td className="hide-on-small-only">{date}</td>
           <td className="item_date">{date}</td>
         )}
 

@@ -20,7 +20,8 @@ class MainAdmin extends Component {
     this.state = {
       amount: '',
       details: '',
-      dropmenu: false
+      dropmenu: false,
+      labels: false
     };
     this.inputRef = React.createRef();
     this.inputRef2 = React.createRef();
@@ -54,7 +55,8 @@ class MainAdmin extends Component {
     }, 2000);
     this.setState({
       amount: '',
-      details: ''
+      details: '',
+      labels: !this.state.labels
     });
 
     this.tbody.current.scrollTop = 0;
@@ -161,7 +163,15 @@ class MainAdmin extends Component {
                     name="amount"
                     autoComplete="off"
                   />
-                  <label htmlFor="amount">Amount</label>
+                  <label
+                    ref={this.labelRef}
+                    htmlFor="amount"
+                    className={classnames({
+                      active: this.props.collection.edition
+                    })}
+                  >
+                    Amount
+                  </label>
                   {errors ? (
                     <span className="helper-text red-text">
                       {errors.amount}
@@ -178,7 +188,15 @@ class MainAdmin extends Component {
                     name="details"
                     autoComplete="off"
                   />
-                  <label htmlFor="details">Details</label>
+                  <label
+                    ref={this.labelRef2}
+                    htmlFor="details"
+                    className={classnames({
+                      active: this.props.collection.edition
+                    })}
+                  >
+                    Details
+                  </label>
                   {errors ? (
                     <span className="helper-text red-text">
                       {errors.details}
@@ -222,7 +240,6 @@ class MainAdmin extends Component {
                   <tr>
                     <th className="item_amount">Amount</th>
                     <th>Details</th>
-                    {/* <th className="hide-on-small-only">Date</th> */}
                     <th>Date</th>
                     <th className="del_cell" />
                   </tr>
