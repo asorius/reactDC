@@ -13,7 +13,13 @@ import { Provider } from 'react-redux';
 import setAxiosHeader from './utils/setAxiosHeader';
 import { setUser } from './actions/authActions';
 import jwt_decode from 'jwt-decode';
-
+//socket stuff
+import io from 'socket.io-client';
+var socket = io.connect('/collectionUsers');
+socket.on('news', function(data) {
+  console.log(data);
+  socket.emit('my other event', { my: 'data' });
+});
 //set user from token to redux, before app render
 if (localStorage.jwtToken) {
   setAxiosHeader(localStorage.jwtToken);

@@ -5,9 +5,21 @@ import MainAdmin from './subcomponents/MainAdmin';
 import MainUser from './subcomponents/MainUser';
 import { getCollection } from '../actions/collectionActions';
 import Preloader from '../utils/Preloader';
+
+import io from 'socket.io-client';
+const socket = io.connect();
+
 class Main extends Component {
   componentDidMount() {
     this.props.getCollection();
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.collection.collection !== this.props.collection.collection) {
+      socket.on('refresh', newdata => {
+        console.log('should update');
+        this.props.collection.collection = { ...newdata };
+      });
+    }
   }
 
   render() {
@@ -17,6 +29,9 @@ class Main extends Component {
     if (collection === null || loading) {
       content = <Preloader />;
     } else {
+      socket.emit('listRefresh', collection);
+      // console.log(`from component ${JSON.stringify(collection, null, ' ')} `);
+
       content =
         user === 'admin' ? (
           <MainAdmin />

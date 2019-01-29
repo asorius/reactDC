@@ -7,6 +7,11 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
 const app = express();
+
+//socket stuff
+var http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
 //MIDDLEWARE
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -23,6 +28,12 @@ mongoose
   .then(console.log('DB connected'))
   .catch(e => console.log(e));
 
+// Make io accessible to router
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
+
 app.use('/login', login);
 app.use('/create', create);
 app.use('/collections', collections);
@@ -35,6 +46,21 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
-const port = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`server running on port ${port}`));
+//socket.io stuff
+io.on('connection', user => {
+  console.log('new user connected..');
+
+  user.on('listRefresh', data => {
+    //first try. emiting this on each main collection container component didmount to distri redux state and to rerender
+    io.emit('refresh', data);
+  });
+
+  user.on('disconnect', () => {
+    console.log(`user disconnected`);
+  });
+});
+
+const port = process.env.PORT || 5000;
+// io.listen(port);
+http.listen(port, () => console.log(`app server running on port ${port}`));

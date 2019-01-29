@@ -9,7 +9,8 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  loading: true
+  loading: true,
+  edition: ''
 };
 export default function(state = initialState, action) {
   switch (action.type) {

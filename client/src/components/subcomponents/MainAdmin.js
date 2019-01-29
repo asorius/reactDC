@@ -20,18 +20,13 @@ class MainAdmin extends Component {
     this.state = {
       amount: '',
       details: '',
-      dropmenu: false,
-      labels: false
+      dropmenu: false
     };
     this.inputRef = React.createRef();
     this.inputRef2 = React.createRef();
     this.tbody = React.createRef();
   }
 
-  componentWillUnmount() {
-    this.props.clearErrors();
-    this.props.clearEdition();
-  }
   componentDidUpdate(prevProps) {
     if (this.props.collection.edition !== prevProps.collection.edition) {
       const { amount, details } = this.props.collection.edition;
@@ -55,8 +50,7 @@ class MainAdmin extends Component {
     }, 2000);
     this.setState({
       amount: '',
-      details: '',
-      labels: !this.state.labels
+      details: ''
     });
 
     this.tbody.current.scrollTop = 0;
@@ -67,7 +61,8 @@ class MainAdmin extends Component {
     this.props.clearEdition();
     this.setState({
       amount: '',
-      details: ''
+      details: '',
+      labels: false
     });
 
     this.tbody.current.scrollTop = 0;
@@ -75,11 +70,13 @@ class MainAdmin extends Component {
   onSubmit = e => {
     e.preventDefault();
     const data = this.state;
+    this.setState({ labels: !this.state.labels });
     this.props.addToCollection(data);
     setTimeout(() => {
       this.props.clearMessages();
       this.props.clearErrors();
       this.props.clearEdition();
+      this.setState({ labels: !this.state.labels });
     }, 2000);
     this.setState({
       amount: '',
@@ -152,10 +149,7 @@ class MainAdmin extends Component {
         </div>
         <div className="col s12  m8 offset-m2 main_col">
           <div className="row ">
-            <form
-              className="col s12 m8 offset-m2 main_col__form"
-              onSubmit={this.onSubmit}
-            >
+            <form className="col s12 m8 offset-m2 main_col__form">
               <div className="row center">
                 <div className="input-field col s12 m6 ">
                   <input
@@ -171,7 +165,7 @@ class MainAdmin extends Component {
                     ref={this.labelRef}
                     htmlFor="amount"
                     className={classnames({
-                      active: this.props.collection.edition
+                      active: this.props.collection.edition || this.state.labels
                     })}
                   >
                     Amount
@@ -196,7 +190,7 @@ class MainAdmin extends Component {
                     ref={this.labelRef2}
                     htmlFor="details"
                     className={classnames({
-                      active: this.props.collection.edition
+                      active: this.props.collection.edition || this.state.labels
                     })}
                   >
                     Details
@@ -225,7 +219,7 @@ class MainAdmin extends Component {
                   </React.Fragment>
                 ) : (
                   <button
-                    type="submit"
+                    onClick={this.onSubmit}
                     className="waves-effect waves-light btn grey darken-3"
                   >
                     <i className="material-icons left teal-text">
