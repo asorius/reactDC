@@ -7,16 +7,14 @@ import { getCollection } from '../actions/collectionActions';
 import Preloader from '../utils/Preloader';
 
 import io from 'socket.io-client';
-const socket = io(`ws://${window.location.host}`, {
-  transports: ['websocket']
-});
-socket.on('connected', msg => console.log(msg));
+const socket = io.connect();
 
 class Main extends Component {
   componentDidMount() {
     this.props.getCollection();
-    console.log(window.location.host);
+    socket.on('connected', msg => console.log(msg));
   }
+  componentWillMount() {}
   componentDidUpdate(prevProps) {
     if (prevProps.collection.collection !== this.props.collection.collection) {
       // const newCollection = this.props.collection.collection;
