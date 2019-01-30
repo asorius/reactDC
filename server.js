@@ -15,8 +15,17 @@ const server = http.createServer(app);
 const io = socketIO(server);
 let users = [];
 io.on('connection', socket => {
-  users.push(socket.id);
-  socket.emit('connected', users);
+  let id = socket.id;
+  users.push(id);
+  console.log(`users online: ${users.length}`);
+  socket.emit('update', users);
+  socket.on('disconnect', id => {
+    users.splice(users.indexOf(id), 1);
+    console.log(`update.users online: ${users.length}`);
+  });
+});
+io.on('disconnect', socket => {
+  socket.emit('update', users);
 });
 //MIDDLEWARE
 app.use(bodyParser.urlencoded({ extended: false }));

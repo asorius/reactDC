@@ -13,7 +13,11 @@ class Main extends Component {
   };
   componentDidMount() {
     this.props.getCollection();
-    socket.on('connected', users => this.setState({ socket: users.length }));
+    socket.on('update', users => {
+      this.props.getCollection();
+
+      this.setState({ socket: users.length });
+    });
   }
 
   render() {
