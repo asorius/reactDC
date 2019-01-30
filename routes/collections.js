@@ -5,7 +5,6 @@ const passport = require('passport');
 const validateAdditionInput = require('../validation/addition');
 const moment = require('moment');
 const idGenerator = require('../generators/idGenerator');
-const { io } = require('../server');
 //GET COLLECTION ../collections/get
 router.get(
   '/get',
@@ -14,6 +13,7 @@ router.get(
     try {
       const { id, userType } = req.user;
       const { data, name, sum } = await Collection.findOne({ _id: id });
+
       res.json({ data, name, userType, sum });
     } catch (e) {
       res.json(e);
@@ -44,10 +44,7 @@ router.post(
       );
       await updatedCollection.save();
       const { data, name, sum } = updatedCollection;
-      // req.io.emit('refreshCall', {
-      //   data: { data, name, userType, sum },
-      //   msg: 'from server'
-      // });
+
       res.json({ data, name, userType, sum });
     } catch (error) {
       res.json({ error });

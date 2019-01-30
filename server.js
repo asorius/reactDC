@@ -17,7 +17,6 @@ const socketManager = require('./socketManager');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
-app.use(express.static(path.join(__dirname, './client/public')));
 //PASSPORT CONFIG
 require('./config/passport')(passport);
 const db = require('./config/key_dist').mongoURI;

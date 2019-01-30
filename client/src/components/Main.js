@@ -14,33 +14,14 @@ class Main extends Component {
     this.props.getCollection();
     socket.on('connected', msg => console.log(msg));
   }
-  componentWillMount() {}
-  componentDidUpdate(prevProps) {
-    if (prevProps.collection.collection !== this.props.collection.collection) {
-      // const newCollection = this.props.collection.collection;
-      //emit to server socket
-      // socket.emit('refreshCall', {
-      //   data: newCollection,
-      //   msg: 'from didupdate'
-      // });
-    }
-  }
 
   render() {
-    //emited by server socket
-    socket.on('refreshList', data => {
-      console.log(data.msg);
-      this.props.collection.collection = { ...data.newdata };
-    });
     const { user } = this.props.auth;
     const { collection, loading } = this.props.collection;
     let content;
     if (collection === null || loading) {
       content = <Preloader />;
     } else {
-      socket.emit('listRefresh', collection);
-      // console.log(`from component ${JSON.stringify(collection, null, ' ')} `);
-
       content =
         user === 'admin' ? (
           <MainAdmin />
