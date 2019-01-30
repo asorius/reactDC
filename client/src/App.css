@@ -172,7 +172,7 @@ button {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  font-style: italic;
+  /* font-style: italic; */
 }
 .land_btn_text {
   padding-left: 0.5rem;

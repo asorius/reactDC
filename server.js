@@ -9,13 +9,15 @@ const path = require('path');
 const app = express();
 
 //socket stuff
-var http = require('http').createServer(app);
-const io = require('socket.io')(http);
-
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+// const socketIO = io.listen(server);
+const socketManager = require('./socketManager');
 //MIDDLEWARE
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
+app.use(express.static(path.join(__dirname, './client/public')));
 //PASSPORT CONFIG
 require('./config/passport')(passport);
 const db = require('./config/key_dist').mongoURI;
@@ -27,12 +29,6 @@ mongoose
   )
   .then(console.log('DB connected'))
   .catch(e => console.log(e));
-
-// Make io accessible to router
-app.use((req, res, next) => {
-  req.io = io;
-  next();
-});
 
 app.use('/login', login);
 app.use('/create', create);
@@ -46,21 +42,27 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
-
-//socket.io stuff
-io.on('connection', user => {
-  console.log('new user connected..');
-
-  user.on('listRefresh', data => {
-    //first try. emiting this on each main collection container component didmount to distri redux state and to rerender
-    io.emit('refresh', data);
-  });
-
-  user.on('disconnect', () => {
-    console.log(`user disconnected`);
-  });
-});
-
 const port = process.env.PORT || 5000;
-// io.listen(port);
-http.listen(port, () => console.log(`app server running on port ${port}`));
+//socket.io stuff
+module.exports.io = io;
+io.on('connection', socketManager);
+
+server.listen(port, () => console.log(`app server running on port ${port}`));
+
+// io.on('connection', user => {
+//   console.log('new user connected..');
+
+//   user.on('refreshCall', data => {
+//     //first try. emiting this on each main collection container component didmount to distri redux state and to rerender
+//     const { data: newdata, msg } = data;
+//     io.emit('refreshList', { newdata, msg });
+//   });
+//   user.on('refreshCallServer', data => {
+//     //first try. emiting this on each main collection container component didmount to distri redux state and to rerender
+//     const { data: newdata, msg } = data;
+//     io.emit('refreshList', { newdata, msg });
+//   });
+//   user.on('disconnect', () => {
+//     console.log(`user disconnected`);
+//   });
+// });

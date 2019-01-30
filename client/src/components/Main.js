@@ -7,22 +7,33 @@ import { getCollection } from '../actions/collectionActions';
 import Preloader from '../utils/Preloader';
 
 import io from 'socket.io-client';
-const socket = io.connect();
+const socket = io(`ws://${window.location.host}`, {
+  transports: ['websocket']
+});
+socket.on('connected', msg => console.log(msg));
 
 class Main extends Component {
   componentDidMount() {
     this.props.getCollection();
+    console.log(window.location.host);
   }
   componentDidUpdate(prevProps) {
     if (prevProps.collection.collection !== this.props.collection.collection) {
-      socket.on('refresh', newdata => {
-        console.log('should update');
-        this.props.collection.collection = { ...newdata };
-      });
+      // const newCollection = this.props.collection.collection;
+      //emit to server socket
+      // socket.emit('refreshCall', {
+      //   data: newCollection,
+      //   msg: 'from didupdate'
+      // });
     }
   }
 
   render() {
+    //emited by server socket
+    socket.on('refreshList', data => {
+      console.log(data.msg);
+      this.props.collection.collection = { ...data.newdata };
+    });
     const { user } = this.props.auth;
     const { collection, loading } = this.props.collection;
     let content;
