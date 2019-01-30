@@ -32,6 +32,7 @@ class MainAdmin extends Component {
       const { amount, details } = this.props.collection.edition;
       this.setState({ amount, details });
     }
+
     this.tbody.current.scrollTop = 0;
     return;
   }

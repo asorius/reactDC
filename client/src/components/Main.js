@@ -3,23 +3,34 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MainAdmin from './subcomponents/MainAdmin';
 import MainUser from './subcomponents/MainUser';
-import { getCollection } from '../actions/collectionActions';
+import { getCollection, clearErrors } from '../actions/collectionActions';
 import Preloader from '../utils/Preloader';
 import io from 'socket.io-client';
 const socket = io.connect();
 class Main extends Component {
   state = {
-    socket: 'none'
+    socket: 'initial'
   };
+
   componentDidMount() {
     this.props.getCollection();
-    socket.on('update', users => {
-      this.props.getCollection();
-
-      this.setState({ socket: users.length });
+    socket.on('updateForUsers', newData => {
+      this.setState({ socket: 'updated' });
+      this.props.clearErrors();
     });
   }
-
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.collection.collection !== this.props.collection.collection &&
+      prevProps.collection.collection !== undefined
+    ) {
+      const newData = this.props.collection.collection;
+      socket.emit('update', newData);
+      socket.on('updateForUser', () => {
+        this.setState({ socket: 'updated' });
+      });
+    }
+  }
   render() {
     const { user } = this.props.auth;
     const { collection, loading } = this.props.collection;
@@ -52,9 +63,10 @@ const mapStateToProps = state => ({
 Main.propTypes = {
   auth: PropTypes.object.isRequired,
   collection: PropTypes.object.isRequired,
-  getCollection: PropTypes.func.isRequired
+  getCollection: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired
 };
 export default connect(
   mapStateToProps,
-  { getCollection }
+  { getCollection, clearErrors }
 )(Main);
