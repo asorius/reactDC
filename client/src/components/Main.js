@@ -8,9 +8,12 @@ import Preloader from '../utils/Preloader';
 import io from 'socket.io-client';
 const socket = io.connect();
 class Main extends Component {
+  state = {
+    socket: 'none'
+  };
   componentDidMount() {
     this.props.getCollection();
-    socket.on('connected', msg => console.log(msg));
+    socket.on('connected', users => this.setState({ socket: users.length }));
   }
 
   render() {
@@ -29,7 +32,12 @@ class Main extends Component {
           <h1>Error</h1>
         );
     }
-    return <div className="container center">{content}</div>;
+    return (
+      <div className="container center">
+        <h1>{this.state.socket}</h1>
+        {content}
+      </div>
+    );
   }
 }
 const mapStateToProps = state => ({

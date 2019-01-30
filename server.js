@@ -13,9 +13,10 @@ const socketIO = require('socket.io');
 const http = require('http');
 const server = http.createServer(app);
 const io = socketIO(server);
-
+let users = [];
 io.on('connection', socket => {
-  socket.emit('connected', `msg from server ${socket.id}`);
+  users.push(socket.id);
+  socket.emit('connected', users);
 });
 //MIDDLEWARE
 app.use(bodyParser.urlencoded({ extended: false }));
