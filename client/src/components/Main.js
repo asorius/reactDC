@@ -5,10 +5,8 @@ import MainAdmin from './subcomponents/MainAdmin';
 import MainUser from './subcomponents/MainUser';
 import { getCollection } from '../actions/collectionActions';
 import Preloader from '../utils/Preloader';
-
 import io from 'socket.io-client';
 const socket = io.connect();
-
 class Main extends Component {
   componentDidMount() {
     this.props.getCollection();
