@@ -21,7 +21,7 @@ class MainAdmin extends Component {
       amount: '',
       details: '',
       dropmenu: false,
-      focus: true
+      focus: false
     };
     this.inputRef = React.createRef();
     this.inputRef2 = React.createRef();
