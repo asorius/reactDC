@@ -20,7 +20,8 @@ class MainAdmin extends Component {
     this.state = {
       amount: '',
       details: '',
-      dropmenu: false
+      dropmenu: false,
+      reload: this.props.reload
     };
     this.inputRef = React.createRef();
     this.inputRef2 = React.createRef();
@@ -32,10 +33,11 @@ class MainAdmin extends Component {
       const { amount, details } = this.props.collection.edition;
       this.setState({ amount, details });
     }
-
     this.tbody.current.scrollTop = 0;
+
     return;
   }
+
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };

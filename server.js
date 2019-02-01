@@ -16,7 +16,7 @@ const io = socketIO(server);
 io.on('connection', socket => {
   socket.on('update', newData => {
     socket.broadcast.emit('updateForUsers', newData);
-    socket.emit('updateForUser');
+    // socket.emit('updateForUser');
   });
 });
 //MIDDLEWARE
@@ -28,10 +28,7 @@ require('./config/passport')(passport);
 const db = require('./config/key_dist').mongoURI;
 
 mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true, useCreateIndex: true }
-  )
+  .connect(db, { useNewUrlParser: true, useCreateIndex: true })
   .then(console.log('DB connected'))
   .catch(e => console.log(e));
 

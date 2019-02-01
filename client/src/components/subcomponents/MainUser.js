@@ -5,6 +5,9 @@ import CollectionItem from './CollectionItem';
 import { logoutUser } from '../../actions/collectionActions';
 import { setUser } from '../../actions/authActions';
 class MainUser extends Component {
+  state = {
+    reload: this.props.reload
+  };
   onLogout = e => {
     e.preventDefault();
     this.props.logoutUser();
