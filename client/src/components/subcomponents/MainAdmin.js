@@ -21,7 +21,7 @@ class MainAdmin extends Component {
       amount: '',
       details: '',
       dropmenu: false,
-      reload: this.props.reload
+      focus: true
     };
     this.inputRef = React.createRef();
     this.inputRef2 = React.createRef();
@@ -31,7 +31,10 @@ class MainAdmin extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.collection.edition !== prevProps.collection.edition) {
       const { amount, details } = this.props.collection.edition;
-      this.setState({ amount, details });
+      this.setState({ amount, details, focus: true });
+      if (this.state.focus) {
+        this.inputRef.current.focus();
+      }
     }
     this.tbody.current.scrollTop = 0;
 
@@ -53,7 +56,8 @@ class MainAdmin extends Component {
     }, 2000);
     this.setState({
       amount: '',
-      details: ''
+      details: '',
+      labels: !this.state.labels
     });
 
     this.tbody.current.scrollTop = 0;
@@ -65,7 +69,8 @@ class MainAdmin extends Component {
     this.setState({
       amount: '',
       details: '',
-      labels: false
+      labels: false,
+      focus: false
     });
 
     this.tbody.current.scrollTop = 0;
