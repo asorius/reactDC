@@ -108,13 +108,19 @@ class MainAdmin extends Component {
   };
 
   onDeleteItems = () => {
-    this.props.deleteCollectionItems();
-    this.setState({ dropmenu: !this.state.dropmenu });
+    const confirmation = window.confirm('Delete current list?');
+    if (confirmation) {
+      this.props.deleteCollectionItems();
+      this.setState({ dropmenu: !this.state.dropmenu });
+    }
   };
   onDeleteAll = () => {
-    this.props.setUser({});
-    this.props.deleteCollection();
-    this.props.logoutUser();
+    const confirmation = window.confirm('Confirm account deletion');
+    if (confirmation) {
+      this.props.setUser({});
+      this.props.deleteCollection();
+      this.props.logoutUser();
+    }
   };
 
   //DROP DOWN MENU STUFF//
