@@ -63,6 +63,9 @@ h1 {
 .input-field input[type='text']:focus + label {
   color: black;
 }
+.active {
+  border-right: none;
+}
 .action-buttons {
   margin: 1rem;
   display: flex;

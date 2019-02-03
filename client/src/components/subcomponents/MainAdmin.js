@@ -23,17 +23,15 @@ class MainAdmin extends Component {
       amount: '',
       details: '',
       dropmenu: false,
-      focus: false,
+      focus: false
     };
-   
+
     this.inputRef = React.createRef();
     this.inputRef2 = React.createRef();
     this.tbody = React.createRef();
   }
-  
 
   componentDidUpdate(prevProps) {
-  
     if (
       this.props.collection.edition !== prevProps.collection.edition &&
       this.props.collection.edition
@@ -168,7 +166,7 @@ class MainAdmin extends Component {
           <div className="row ">
             <form className="col s12 m8 offset-m2 main_col__form">
               <div className="row center">
-                <div className="input-field col s12 m6 ">
+                <div className="input-field col s6 m6 ">
                   <input
                     ref={this.inputRef}
                     id="amount"
@@ -193,7 +191,7 @@ class MainAdmin extends Component {
                     </span>
                   ) : null}
                 </div>
-                <div className="input-field col s12 m6 ">
+                <div className="input-field col s6 m6 ">
                   <input
                     ref={this.inputRef2}
                     id="details"
