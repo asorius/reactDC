@@ -15,7 +15,10 @@ import {
   getCollection
 } from '../../actions/collectionActions';
 import { setUser } from '../../actions/authActions';
+//alert stuff
+import Swal from 'sweetalert2';
 
+//
 class MainAdmin extends Component {
   constructor(props) {
     super(props);
@@ -108,19 +111,44 @@ class MainAdmin extends Component {
   };
 
   onDeleteItems = () => {
-    const confirmation = window.confirm('Delete current list?');
-    if (confirmation) {
-      this.props.deleteCollectionItems();
-      this.setState({ dropmenu: !this.state.dropmenu });
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then(result => {
+      if (result.value) {
+        Swal.fire('Deleted!').then(() => {
+          this.props.deleteCollectionItems();
+        });
+      }
+    });
+    this.setState({ dropmenu: !this.state.dropmenu });
   };
   onDeleteAll = () => {
-    const confirmation = window.confirm('Confirm account deletion');
-    if (confirmation) {
-      this.props.setUser({});
-      this.props.deleteCollection();
-      this.props.logoutUser();
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then(result => {
+      if (result.value) {
+        Swal.fire('Deleted!', 'Your account has been deleted.', 'success').then(
+          () => {
+            this.props.setUser({});
+            this.props.deleteCollection();
+            this.props.logoutUser();
+            window.location.reload();
+          }
+        );
+      }
+    });
   };
 
   //DROP DOWN MENU STUFF//

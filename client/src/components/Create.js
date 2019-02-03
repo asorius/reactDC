@@ -60,7 +60,7 @@ class Create extends Component {
                         value={this.state.name}
                         onChange={this.onChange}
                         maxLength="10"
-                        minLength="1"
+                        minLength="2"
                         className={classnames({
                           invalid: errors.name
                         })}
@@ -73,7 +73,7 @@ class Create extends Component {
                           'red-text': errors.name
                         })}
                       >
-                        {errors.name ? errors.name : '1 - 10 characters'}
+                        {errors.name ? errors.name : '2 - 10 characters'}
                       </span>
                     </div>
                   </div>
@@ -186,7 +186,6 @@ class Create extends Component {
                             value={this.state.password2}
                             onChange={this.onChange}
                             maxLength="15"
-                            // minLength="5"
                             className={classnames({
                               invalid: errors.password2
                             })}
