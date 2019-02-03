@@ -94,7 +94,12 @@ h1 {
 .user_table tr:nth-child(even) {
   background-color: #e0e0e0;
 }
-
+.item_details {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  min-width: 5rem;
+}
 .del_cell {
   width: 5rem;
 }

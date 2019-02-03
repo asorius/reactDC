@@ -11,9 +11,11 @@ import {
   logoutUser,
   clearErrors,
   clearEdition,
-  clearMessages
+  clearMessages,
+  getCollection
 } from '../../actions/collectionActions';
 import { setUser } from '../../actions/authActions';
+
 class MainAdmin extends Component {
   constructor(props) {
     super(props);
@@ -21,20 +23,26 @@ class MainAdmin extends Component {
       amount: '',
       details: '',
       dropmenu: false,
-      focus: false
+      focus: false,
     };
+   
     this.inputRef = React.createRef();
     this.inputRef2 = React.createRef();
     this.tbody = React.createRef();
   }
+  
 
   componentDidUpdate(prevProps) {
-    if (this.props.collection.edition !== prevProps.collection.edition) {
+  
+    if (
+      this.props.collection.edition !== prevProps.collection.edition &&
+      this.props.collection.edition
+    ) {
       const { amount, details } = this.props.collection.edition;
       this.setState({ amount, details, focus: true });
-      if (this.state.focus) {
-        this.inputRef.current.focus();
-      }
+    }
+    if (this.state.focus === true) {
+      this.inputRef.current.focus();
     }
     this.tbody.current.scrollTop = 0;
 
@@ -57,7 +65,8 @@ class MainAdmin extends Component {
     this.setState({
       amount: '',
       details: '',
-      labels: !this.state.labels
+      labels: false,
+      focus: false
     });
 
     this.tbody.current.scrollTop = 0;
@@ -372,7 +381,8 @@ MainAdmin.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   clearMessages: PropTypes.func.isRequired,
   clearEdition: PropTypes.func.isRequired,
-  setUser: PropTypes.func.isRequired
+  setUser: PropTypes.func.isRequired,
+  getCollection: PropTypes.func.isRequired
 };
 export default connect(
   mapStateToProps,
@@ -385,6 +395,7 @@ export default connect(
     setUser,
     clearErrors,
     clearEdition,
-    clearMessages
+    clearMessages,
+    getCollection
   }
 )(MainAdmin);

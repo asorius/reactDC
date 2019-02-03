@@ -10,41 +10,29 @@ const socket = io.connect();
 class Main extends Component {
   constructor(props) {
     super(props);
-    socket.on('updateForUsers', newData => {
+    socket.on('updateForUsers', () => {
       window.location.reload();
-      // this.updatePropsCollection(newData);
     });
   }
-  state = {
-    reload: false
-  };
-
-  updatePropsCollection = data => {
-    // console.log('fn from updateprops ');
-    this.props.collection.collection = data;
-    // console.log(`setted ${JSON.stringify(data, null, ' ')} to props.`);
-    this.setState({ reload: true });
-  };
 
   componentDidMount() {
     this.props.getCollection();
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    // console.log(`
-    //   nextState : ${JSON.stringify(nextState, null, ' ')},
-    //   nextProps: ${JSON.stringify(nextProps.collection.collection, null, ' ')}
-    //   thisState:${JSON.stringify(this.state, null, ' ')}
-    //   thisProps:${JSON.stringify(this.props.collection.collection, null, ' ')}
-    //   comparare nextprops is equal to thisprops ${nextProps.collection
-    //     .collection === this.props.collection.collection}    `);
-    const preupdate = this.props.collection.collection;
-    const incoming = nextProps.collection.collection;
-    if (preupdate !== incoming && preupdate !== undefined) {
-      // console.log('if statement ran..');
-      socket.emit('update', incoming);
+  componentDidUpdate(prevProps) {
+    if (this.props.collection.collection) {
+      socket.emit('joinRoom', { room: this.props.collection.collection.name });
+      const newData = this.props.collection.collection;
+      const oldData = prevProps.collection.collection;
+      if (oldData !== newData && oldData !== undefined) {
+        socket.emit('update', { room: this.props.collection.collection.name });
+      }
     }
   }
+  componentWillUnmount() {
+    socket.emit('leaveRoom', { room: this.props.collection.collection.name });
+  }
+  componentWillUpdate(nextProps, nextState) {}
 
   render() {
     const { user } = this.props.auth;

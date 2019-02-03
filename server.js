@@ -14,9 +14,16 @@ const http = require('http');
 const server = http.createServer(app);
 const io = socketIO(server);
 io.on('connection', socket => {
-  socket.on('update', newData => {
-    socket.broadcast.emit('updateForUsers', newData);
-    // socket.emit('updateForUser');
+  socket.on('joinRoom', data => {
+    socket.join(data.room);
+  });
+
+  socket.on('update', data => {
+    socket.broadcast.to(data.room).emit('updateForUsers');
+  });
+
+  socket.on('leaveRoom', data => {
+    socket.leave(data.room);
   });
 });
 //MIDDLEWARE
