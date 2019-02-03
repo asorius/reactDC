@@ -116,14 +116,16 @@ class MainAdmin extends Component {
       text: "You won't be able to revert this!",
       type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#009688',
+      cancelButtonColor: '#e65100',
       confirmButtonText: 'Yes'
     }).then(result => {
       if (result.value) {
-        Swal.fire('Deleted!').then(() => {
-          this.props.deleteCollectionItems();
-        });
+        Swal.fire({ text: 'Deleted!', confirmButtonColor: '#009688' }).then(
+          () => {
+            this.props.deleteCollectionItems();
+          }
+        );
       }
     });
     this.setState({ dropmenu: !this.state.dropmenu });
@@ -134,19 +136,22 @@ class MainAdmin extends Component {
       text: "You won't be able to revert this!",
       type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#009688',
+      cancelButtonColor: '#e65100',
       confirmButtonText: 'Yes'
     }).then(result => {
       if (result.value) {
-        Swal.fire('Deleted!', 'Your account has been deleted.', 'success').then(
-          () => {
-            this.props.setUser({});
-            this.props.deleteCollection();
-            this.props.logoutUser();
-            window.location.reload();
-          }
-        );
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Your account has been deleted.',
+          type: 'success',
+          confirmButtonColor: '#009688'
+        }).then(() => {
+          this.props.setUser({});
+          this.props.deleteCollection();
+          this.props.logoutUser();
+          window.location.reload();
+        });
       }
     });
   };
@@ -194,7 +199,7 @@ class MainAdmin extends Component {
     return (
       <div className="row center">
         <div className="col s12">
-          <h1>{name}</h1>
+          <h1 id="nameh1">{name}</h1>
         </div>
         <div className="col s12  m8 offset-m2 main_col">
           <div className="row ">
@@ -328,7 +333,7 @@ class MainAdmin extends Component {
             </button>
             <button
               onClick={this.onDeleteItems}
-              className="waves-effect waves-light btn grey lighten-2 black-text"
+              className="waves-effect waves-light btn teal  white-text"
             >
               Delete List
             </button>
@@ -372,7 +377,7 @@ class MainAdmin extends Component {
               <li>
                 <button
                   onClick={this.onDeleteItems}
-                  className="waves-effect   btn dropbtn"
+                  className="waves-effect   btn teal  white-text dropbtn"
                 >
                   Delete List
                 </button>
