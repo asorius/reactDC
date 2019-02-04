@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
-  //checking localstorage is not a valid check, need changing when possible
+  //checking localstorage here is not an accurate check, needs changing
   <Route
     {...rest}
     render={props =>

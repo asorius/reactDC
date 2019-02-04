@@ -31,7 +31,6 @@ class App extends Component {
             <Route exact path="/create" component={Create} />
             <Route exact path="/login" component={Login} />
             <PrivateRoute exact path="/collections" component={Main} />
-            {/* <Route exact path="/collections" component={Main} /> */}
           </div>
         </Router>
       </Provider>

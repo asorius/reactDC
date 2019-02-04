@@ -121,11 +121,13 @@ class MainAdmin extends Component {
       confirmButtonText: 'Yes'
     }).then(result => {
       if (result.value) {
-        Swal.fire({ text: 'Deleted!', confirmButtonColor: '#009688' }).then(
-          () => {
-            this.props.deleteCollectionItems();
-          }
-        );
+        Swal.fire({
+          text: 'Deleted!',
+          type: 'success',
+          confirmButtonColor: '#009688'
+        }).then(() => {
+          this.props.deleteCollectionItems();
+        });
       }
     });
     this.setState({ dropmenu: !this.state.dropmenu });
