@@ -5,11 +5,13 @@ import jwt_decode from 'jwt-decode';
 
 //SET CURRENT USER
 export const setUser = decoded => dispatch => {
-  if (!decoded.userType) {
+  //decoded is expected to be {id,usertype}
+  if (decoded.userType) {
     decoded = { ...decoded, isAuthenticated: true };
   } else {
-    decoded = { ...decoded, isAuthenticated: false };
+    decoded = { isAuthenticated: false };
   }
+
   dispatch({
     type: SET_USER,
     payload: decoded
@@ -32,11 +34,11 @@ export const loginUser = data => dispatch => {
       setAxiosHeader(token);
       const decoded = jwt_decode(token);
       //decoded should look like :{id:'weqrwer',userType:'admin'}
-      history.push('/collections');
       dispatch({
         type: SET_USER,
         payload: decoded
       });
+      history.push('/collections');
     })
     .catch(error =>
       dispatch({ type: GET_ERRORS, payload: error.response.data })

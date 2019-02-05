@@ -32,7 +32,6 @@ class Main extends Component {
   componentWillUnmount() {
     socket.emit('leaveRoom', { room: this.props.collection.collection.name });
   }
-  componentWillUpdate(nextProps, nextState) {}
 
   render() {
     const { user } = this.props.auth;

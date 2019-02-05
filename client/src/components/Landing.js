@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 class Landing extends Component {
   //sketchy check
   componentDidMount() {
-    if (localStorage.jwtToken) {
+    if (this.props.auth.isAuthenticated) {
       this.props.history.push('/collections');
     }
   }
@@ -44,5 +45,10 @@ class Landing extends Component {
     );
   }
 }
-
-export default Landing;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+Landing.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+export default connect(mapStateToProps)(Landing);

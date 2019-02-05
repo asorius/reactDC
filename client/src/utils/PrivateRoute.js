@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
-  //checking localstorage here is not an accurate check, needs changing
   <Route
     {...rest}
     render={props =>
-      localStorage.jwtToken ? <Component {...props} /> : <Redirect to="/" />
+      auth.isAuthenticated ? <Component {...props} /> : <Redirect to="/" />
     }
   />
 );

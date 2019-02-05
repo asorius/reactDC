@@ -17,7 +17,7 @@ import jwt_decode from 'jwt-decode';
 //set user from token to redux, before app render
 if (localStorage.jwtToken) {
   setAxiosHeader(localStorage.jwtToken);
-  const decoded = jwt_decode(localStorage.jwtToken);
+  let decoded = jwt_decode(localStorage.jwtToken);
   store.dispatch(setUser(decoded));
 }
 
@@ -31,6 +31,7 @@ class App extends Component {
             <Route exact path="/create" component={Create} />
             <Route exact path="/login" component={Login} />
             <PrivateRoute exact path="/collections" component={Main} />
+            {/* <Route exact path="/collections" component={Main} /> */}
           </div>
         </Router>
       </Provider>

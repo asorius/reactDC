@@ -10,10 +10,10 @@ class Login extends Component {
     name: '',
     password: ''
   };
-  //Skecthy fix for redirecting. Too frustrated to solve atm.
   componentWillMount() {
-    if (localStorage.getItem('jwtToken'))
+    if (this.props.auth.isAuthenticated) {
       this.props.history.push('/collections');
+    }
   }
   componentWillUnmount() {
     this.props.clearErrors();

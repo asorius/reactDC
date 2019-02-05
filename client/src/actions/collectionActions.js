@@ -34,11 +34,11 @@ export const createCollection = data => dispatch => {
       const { token, userType, id } = res.data;
       localStorage.setItem('jwtToken', token);
       setAxiosHeader(token);
-      history.push('/collections');
       dispatch({
         type: SET_USER,
         payload: { userType, id }
       });
+      history.push('/collections');
     })
     .catch(error =>
       dispatch({ type: GET_ERRORS, payload: error.response.data })
