@@ -175,10 +175,14 @@ td {
 button {
   width: 10rem;
 }
+.btn {
+  text-transform: none;
+}
 .btn-landing {
   padding: 5px;
   height: 3.5rem;
-  width: 12rem;
+  /* width: 12rem; */
+  letter-spacing: 0.1rem;
   display: flex;
   justify-content: center;
   align-items: center;

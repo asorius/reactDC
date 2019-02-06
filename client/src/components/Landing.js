@@ -17,10 +17,10 @@ class Landing extends Component {
         <div className="row center">
           <div className="col s12 m6 offset-m3 landing_actions">
             <div className="row ">
-              <div className="col s12 center">
+              <div className="col s6 offset-s3 ">
                 <Link to="/create">
                   <button className="waves-effect waves-light btn  btn-landing grey darken-3">
-                    <i className="teal-text material-icons">
+                    <i className="teal-text  material-icons">
                       create_new_folder
                     </i>
                     <div className="land_btn_text">Create</div>
@@ -29,7 +29,7 @@ class Landing extends Component {
               </div>
             </div>
             <div className="row">
-              <div className="col s12 center">
+              <div className="col s6 offset-s3">
                 <Link to="/login">
                   <button className="waves-effect waves-light btn btn-landing grey darken-3">
                     <i className="teal-text material-icons">folder_shared</i>
