@@ -36,7 +36,7 @@ export const createCollection = data => dispatch => {
       setAxiosHeader(token);
       dispatch({
         type: SET_USER,
-        payload: { userType, id }
+        payload: { userType, id, isAuthenticated: true }
       });
       history.push('/collections');
     })

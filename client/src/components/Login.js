@@ -15,6 +15,7 @@ class Login extends Component {
       this.props.history.push('/collections');
     }
   }
+
   componentWillUnmount() {
     this.props.clearErrors();
   }

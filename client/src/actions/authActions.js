@@ -9,7 +9,7 @@ export const setUser = decoded => dispatch => {
   if (decoded.userType) {
     decoded = { ...decoded, isAuthenticated: true };
   } else {
-    decoded = { isAuthenticated: false };
+    decoded = { isAuthenticated: false, user: {}, id: '' };
   }
 
   dispatch({
@@ -36,7 +36,7 @@ export const loginUser = data => dispatch => {
       //decoded should look like :{id:'weqrwer',userType:'admin'}
       dispatch({
         type: SET_USER,
-        payload: decoded
+        payload: { ...decoded, isAuthenticated: true }
       });
       history.push('/collections');
     })
