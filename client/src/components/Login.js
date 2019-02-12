@@ -15,11 +15,6 @@ class Login extends Component {
       this.props.history.push('/collections');
     }
   }
-
-  componentWillUnmount() {
-    this.props.clearErrors();
-  }
-
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value.toLowerCase() });
   };
@@ -31,6 +26,9 @@ class Login extends Component {
       history: this.props.history
     };
     this.props.loginUser(dataToSend);
+    setTimeout(() => {
+      this.props.clearErrors();
+    }, 3000);
   };
 
   render() {

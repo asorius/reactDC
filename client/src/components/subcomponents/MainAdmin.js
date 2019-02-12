@@ -15,10 +15,7 @@ import {
   getCollection
 } from '../../actions/collectionActions';
 import { setUser } from '../../actions/authActions';
-//alert stuff
 import Swal from 'sweetalert2';
-
-//
 class MainAdmin extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +23,8 @@ class MainAdmin extends Component {
       amount: '',
       details: '',
       dropmenu: false,
-      focus: false
+      focus: false,
+      labels: false
     };
 
     this.inputRef = React.createRef();
@@ -35,6 +33,7 @@ class MainAdmin extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    //checking if user has set any data to edit before update , if true, put editable values as input values
     if (
       this.props.collection.edition !== prevProps.collection.edition &&
       this.props.collection.edition
@@ -42,11 +41,11 @@ class MainAdmin extends Component {
       const { amount, details } = this.props.collection.edition;
       this.setState({ amount, details, focus: true });
     }
+    // to set focus on inputs if user set anything to update
     if (this.state.focus === true) {
       this.inputRef.current.focus();
     }
     this.tbody.current.scrollTop = 0;
-
     return;
   }
 
@@ -57,24 +56,27 @@ class MainAdmin extends Component {
     e.preventDefault();
     const { _id: id } = this.props.collection.edition;
     const { amount, details } = this.state;
+    //updates database
     this.props.editCollectionItem({ id, amount, details });
+    //response from database set either success message overlay or error message under inputs
     setTimeout(() => {
+      //clear any update response message
       this.props.clearMessages();
       this.props.clearErrors();
       this.props.clearEdition();
-    }, 2000);
+    }, 1000);
+    //reset state
     this.setState({
       amount: '',
       details: '',
       labels: false,
       focus: false
     });
-
     this.tbody.current.scrollTop = 0;
   };
   closeEdition = e => {
     e.preventDefault();
-
+    //clear redux state for edition
     this.props.clearEdition();
     this.setState({
       amount: '',
@@ -82,8 +84,6 @@ class MainAdmin extends Component {
       labels: false,
       focus: false
     });
-
-    this.tbody.current.scrollTop = 0;
   };
   onSubmit = e => {
     e.preventDefault();
@@ -94,13 +94,8 @@ class MainAdmin extends Component {
       this.props.clearMessages();
       this.props.clearErrors();
       this.props.clearEdition();
-      this.setState({ labels: !this.state.labels });
-    }, 2000);
-    this.setState({
-      amount: '',
-      details: ''
-    });
-
+      this.setState({ labels: !this.state.labels, amount: '', details: '' });
+    }, 1000);
     this.tbody.current.scrollTop = 0;
   };
 
@@ -111,9 +106,10 @@ class MainAdmin extends Component {
   };
 
   onDeleteItems = () => {
+    //alert stuff
     Swal.fire({
       title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      text: 'List will be deleted!',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#009688',
@@ -133,9 +129,10 @@ class MainAdmin extends Component {
     this.setState({ dropmenu: !this.state.dropmenu });
   };
   onDeleteAll = () => {
+    //alert stuff
     Swal.fire({
       title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      text: 'Your account will be deleted!',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#009688',
@@ -145,7 +142,7 @@ class MainAdmin extends Component {
       if (result.value) {
         Swal.fire({
           title: 'Deleted!',
-          text: 'Your account has been deleted.',
+          text: 'Your account has been successfully deleted.',
           type: 'success',
           confirmButtonColor: '#009688'
         }).then(() => {
@@ -163,6 +160,7 @@ class MainAdmin extends Component {
   showMenu = event => {
     event.preventDefault();
     this.setState({ dropmenu: true }, () => {
+      //adds closemenu func to all clicks on document
       document.addEventListener('click', this.closeMenu);
     });
   };
@@ -172,10 +170,12 @@ class MainAdmin extends Component {
       return;
     }
     if (this.dropdownMenu.classList.contains('closable')) {
+      //to make drop menu container , not buttons itself, closable , for convenience
       this.setState({ dropmenu: false }, () => {
         document.removeEventListener('click', this.closeMenu);
       });
     } else if (!this.dropdownMenu.contains(event.target)) {
+      //if user clicks on anything that isn't a child of dropdownmenu container, dropdown closes
       this.setState({ dropmenu: false }, () => {
         document.removeEventListener('click', this.closeMenu);
       });
@@ -190,6 +190,7 @@ class MainAdmin extends Component {
     const edition = this.props.collection.edition;
     const { text } = this.props.messages;
     let list;
+    //if there is any data, loop through it and produce il for each obj
     if (data.length !== 0) {
       list = data.map(element => (
         <CollectionItem element={element} key={element._id} />

@@ -8,17 +8,13 @@ import {
   clearMessages
 } from '../../actions/collectionActions';
 class CollectionItem extends Component {
-  componentWillUnmount() {
-    this.props.clearErrors();
-  }
   deleteFn = () => {
     const id = this.props.element._id;
     this.props.deleteCollectionItem(id);
-
     setTimeout(() => {
       this.props.clearMessages();
       this.props.clearErrors();
-    }, 2000);
+    }, 1000);
   };
   editFn = () => {
     const { amount, details, _id } = this.props.element;

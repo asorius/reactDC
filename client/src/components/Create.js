@@ -15,9 +15,7 @@ class Create extends Component {
     showUserMenu: false,
     showBtn: true
   };
-  componentWillUnmount() {
-    this.props.clearErrors();
-  }
+
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -37,6 +35,9 @@ class Create extends Component {
       history: this.props.history
     };
     this.props.createCollection(dataToSend);
+    setTimeout(() => {
+      this.props.clearErrors();
+    }, 3000);
   };
   render() {
     const { errors } = this.props;
