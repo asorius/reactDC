@@ -1,4 +1,4 @@
-# reactDC
+# Debt Colletor Refactored
 ### Stack:
   * Backend: NodeJs & ExpressJS,
   * Real-time DOM manipulation: Socket.io,
