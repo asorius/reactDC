@@ -41,8 +41,11 @@ class MainAdmin extends Component {
       const { amount, details } = this.props.collection.edition;
       this.setState({ amount, details, focus: true });
     }
-    // to set focus on inputs if user set anything to update
-    if (this.state.focus === true) {
+    // to set focus on amount input if user set anything to edit. additional state check to fix constant refocus on amount input after typing in details input *works*
+    if (
+      this.state.focus === true &&
+      this.state.details === prevProps.collection.edition.details
+    ) {
       this.inputRef.current.focus();
     }
     this.tbody.current.scrollTop = 0;
