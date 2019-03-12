@@ -6,6 +6,10 @@ import MainUser from './subcomponents/MainUser';
 import { getCollection, clearErrors } from '../actions/collectionActions';
 import Preloader from '../utils/Preloader';
 import io from 'socket.io-client';
+
+import { setUser } from '../actions/authActions';
+import { logoutUser } from '../actions/collectionActions';
+
 const socket = io.connect();
 class Main extends Component {
   constructor(props) {
@@ -27,10 +31,20 @@ class Main extends Component {
       if (oldData !== newData && oldData !== undefined) {
         socket.emit('update', { room: this.props.collection.collection.name });
       }
+    } else if (
+      //bugfix if collection isnt existing on db yet there is still token stored in localstorage
+      this.props.collection.loading === false &&
+      this.props.collection.collection === null
+    ) {
+      this.props.logoutUser();
+      this.props.setUser({});
     }
   }
   componentWillUnmount() {
-    socket.emit('leaveRoom', { room: this.props.collection.collection.name });
+    //in case of token/no db there wont be no name, so check before if there is an actual collection reduxed
+    if (this.props.collection.collection !== null) {
+      socket.emit('leaveRoom', { room: this.props.collection.collection.name });
+    }
   }
 
   render() {
@@ -61,9 +75,11 @@ Main.propTypes = {
   auth: PropTypes.object.isRequired,
   collection: PropTypes.object.isRequired,
   getCollection: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired
 };
 export default connect(
   mapStateToProps,
-  { getCollection, clearErrors }
+  { getCollection, clearErrors, logoutUser, setUser }
 )(Main);
